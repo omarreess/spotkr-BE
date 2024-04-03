@@ -75,6 +75,7 @@ class LoginService
                 VerifyTokenTypeEnum::ONE_TIME_PASSWORD,
             );
         }
+
         auth()->login($user);
 
         //UserHelper::loadAdditionalRelations($user);

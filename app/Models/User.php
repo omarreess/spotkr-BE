@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Builders\UserBuilder;
+use App\Traits\PaginationTrait;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +22,8 @@ class User extends Authenticatable implements HasMedia
         HasApiTokens,
         UserRelations,
         HasVerifyTokens,
+        PaginationTrait,
+        Searchable,
         InteractsWithMedia;
 
     /**
@@ -56,6 +60,7 @@ class User extends Authenticatable implements HasMedia
             'phone_verified_at' => 'datetime',
             'password' => 'hashed',
             'social_links' => 'array',
+            'status' => 'boolean',
         ];
     }
 

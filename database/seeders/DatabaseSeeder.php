@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Modules\Auth\Database\Seeders\UserSeeder;
+use Modules\Country\Database\Seeders\CountryDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
+            CountryDatabaseSeeder::class,
         ]);
     }
 }

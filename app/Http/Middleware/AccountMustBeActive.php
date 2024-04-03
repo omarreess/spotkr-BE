@@ -7,8 +7,7 @@ use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Modules\Auth\Actions\LogoutUser;
-use Modules\Auth\Enums\UserTypeEnum;
-use Modules\Role\Enums\UserStatusEnum;
+use Modules\Auth\Enums\UserStatusEnum;
 use Symfony\Component\HttpFoundation\Response;
 
 class AccountMustBeActive
@@ -33,14 +32,6 @@ class AccountMustBeActive
                 translate_error_message('user', 'frozen'),
                 additional: ['verified' => true]
             );
-        }
-
-        if (UserTypeEnum::getUserType() == UserTypeEnum::BRANCH) {
-            $branch = auth()->user()->branch;
-
-            if (! $branch->status) {
-                return $this->forbiddenResponse();
-            }
         }
 
         return $next($request);

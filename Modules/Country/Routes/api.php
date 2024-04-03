@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Country\Http\Controllers\CityController;
+use Modules\Country\Http\Controllers\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/country', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'cities'], function(){
+    Route::get('popular', [CityController::class, 'popular']);
 });

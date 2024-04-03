@@ -29,6 +29,7 @@ use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Support\Str;
 //use Modules\Auth\Http\Middleware\CheckUserType;
 //use Modules\Auth\Http\Middleware\MustBeVerified;
+use Modules\Auth\Http\Middleware\CheckUserType;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,7 +70,7 @@ return Application::configure(basePath: dirname(__DIR__))
             //'permission' => PermissionMiddleware::class,
             'account_must_be_active' => AccountMustBeActive::class,
             'must_be_verified' => MustBeVerified::class,
-            // 'user_type_in' => CheckUserType::class,
+             'user_type_in' => CheckUserType::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -3,6 +3,7 @@
 namespace Modules\Auth\Services;
 
 use App\Exceptions\ValidationErrorsException;
+use Modules\Auth\Enums\UserStatusEnum;
 use Modules\Auth\Enums\VerifyTokenTypeEnum;
 use Modules\Auth\Traits\VerifiableTrait;
 use Modules\Otp\Contracts\OtpContract;
