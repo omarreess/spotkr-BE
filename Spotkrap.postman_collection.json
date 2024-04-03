@@ -1,0 +1,3501 @@
+{
+	"info": {
+		"_postman_id": "5b19ae65-3753-4025-aad9-7e540b3340cf",
+		"name": "Spotkrap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19177587"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Dashboard",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set('AUTH_TOKEN',pm.response.json().data.token)\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "phone",
+											"value": "201123456780",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "201123456780",
+											"type": "text"
+										},
+										{
+											"key": "fcm_token",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/auth/login/dashboard",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"login",
+										"dashboard"
+									]
+								},
+								"description": "Here You Send In **Body** email and password and login with our user and you get a cookie in you browser called **X-Xsrf Token** and **Laravel_session**\n\nthat is alternative of token to add security layer\n\n- **Payload**\n    \n\nall values are required except \\`remember_me\\`\n\nif you enabled google captcha it's required also"
+							},
+							"response": [
+								{
+									"name": "User Logged In Successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "phone",
+													"value": "201123456780",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "201123456780",
+													"type": "text"
+												},
+												{
+													"key": "fcm_token",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/login/dashboard",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"login",
+												"dashboard"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:17:54 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"admin\",\n        \"phone\": \"201123456780\",\n        \"status\": 1,\n        \"email\": null,\n        \"username\": \"admin\",\n        \"avatar\": \"http://localhost:8000/storage/default/store.png\",\n        \"type\": \"admin\",\n        \"token\": \"5|4ujBT8TBwmWeV4W8xYaRh1J71bt4Vvgd40XBFVe5b9e5e9cc\",\n        \"bio\": null,\n        \"social_links\": null\n    },\n    \"message\": \"User logged in successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Wrong Credentials",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "phone",
+													"value": "201123456780",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "2011234567800",
+													"type": "text"
+												},
+												{
+													"key": "fcm_token",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/login/dashboard",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"login",
+												"dashboard"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:18:19 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"Wrong Credentials\",\n    \"type\": \"error\",\n    \"code\": 401,\n    \"showToast\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Mobile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set('AUTH_TOKEN',pm.response.json().data.token)\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "phone",
+											"value": "201123456781",
+											"type": "text"
+										},
+										{
+											"key": "one_time_password",
+											"value": "1839",
+											"description": "generate from verify/oneTimePassword endpoint",
+											"type": "text"
+										},
+										{
+											"key": "fcm_token",
+											"value": "201123456787",
+											"description": "used for firebase, pass it static now",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/auth/login/mobile",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"login",
+										"mobile"
+									]
+								},
+								"description": "Here You Send In **Body** email and password and login with our user and you get a cookie in you browser called **X-Xsrf Token** and **Laravel_session**\n\nthat is alternative of token to add security layer\n\n- **Payload**\n    \n\nall values are required except \\`remember_me\\`\n\nif you enabled google captcha it's required also"
+							},
+							"response": [
+								{
+									"name": "Required Values",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/auth/login/mobile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"login",
+												"mobile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:19:42 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"phone\": \"field is required.\",\n        \"one_time_password\": \"field is required.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "User Is Not Verified",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "client@admin.com",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "client",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/login/mobile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"login",
+												"mobile"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 21 Sep 2023 07:25:51 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1q PHP/8.1.10"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.1.10"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"User is not verified\",\n    \"type\": \"error\",\n    \"code\": 403,\n    \"verified\": true\n}"
+								},
+								{
+									"name": "One Time Password Code Is Wrong",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "phone",
+													"value": "201006131249",
+													"type": "text"
+												},
+												{
+													"key": "one_time_password",
+													"value": "4838",
+													"description": "generate from verify/oneTimePassword endpoint",
+													"type": "text"
+												},
+												{
+													"key": "fcm_token",
+													"value": "201123456787",
+													"description": "used for firebase, pass it static now",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/login/mobile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"login",
+												"mobile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:21:27 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"code\": \"Invalid code for that handle\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "User Logged In Successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "phone",
+													"value": "201006131248",
+													"type": "text"
+												},
+												{
+													"key": "one_time_password",
+													"value": "2123",
+													"description": "generate from verify/oneTimePassword endpoint",
+													"type": "text"
+												},
+												{
+													"key": "fcm_token",
+													"value": "201123456787",
+													"description": "used for firebase, pass it static now",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/login/mobile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"login",
+												"mobile"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:24:02 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"Google\",\n        \"phone\": \"201006131248\",\n        \"status\": 1,\n        \"email\": null,\n        \"username\": null,\n        \"avatar\": \"http://localhost:8000/storage/default/store.png\",\n        \"type\": \"client\",\n        \"token\": \"1|22bhvCyzBdXPKY3sShWNAHwyCBDT0Bge9LrGR6bD16fb6665\",\n        \"bio\": \"This is your user bio\",\n        \"social_links\": [\n            \"https://facebook.com\"\n        ]\n    },\n    \"message\": \"User logged in successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"item": [
+						{
+							"name": "Logout User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});;"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/auth/logout",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "You Are Not Authenticated",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{URL}}/auth/logout",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"logout"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:25:55 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"You are not authenticated\",\n    \"type\": \"error\",\n    \"code\": 401,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "User Logged Out Successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{URL}}/auth/logout",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"logout"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:25:26 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"User logged out successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"item": [
+						{
+							"name": "Client",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Google",
+											"description": "max is 255 character",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "201006131243",
+											"description": "must be unique and valid number",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"description": "extensions are jpeg,png,jfif,jpg,webp and max size is 10MB",
+											"type": "file",
+											"src": "/home/attar/Pictures/Screenshot_20240227_172022.png"
+										},
+										{
+											"key": "bio",
+											"value": "This is your user bio",
+											"description": "nullable, it's long text",
+											"type": "text"
+										},
+										{
+											"key": "social_links[0]",
+											"value": "https://facebook.com",
+											"description": "it's an array, pass it with index like ar[index] = value\n\n- must be a valid url ",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "amir23121_",
+											"description": "must be alpha_numeric only",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/auth/register/client",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"register",
+										"client"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Required Values",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{URL}}/auth/register/client",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"register",
+												"client"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:28:43 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"name\": \"field is required.\",\n        \"phone\": \"field is required.\",\n        \"username\": \"field is required.\",\n        \"social_links\": \"field is required.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Unique Columns",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Google",
+													"description": "max is 255 character",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "201006131248",
+													"description": "must be unique and valid number",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"type": "file",
+													"src": "/home/attar/Pictures/Screenshot_20240227_172022.png"
+												},
+												{
+													"key": "bio",
+													"value": "This is your user bio",
+													"description": "nullable, it's long text",
+													"type": "text"
+												},
+												{
+													"key": "social_links[0]",
+													"value": "https://facebook.com",
+													"description": "it's an array, pass it with index like ar[index] = value\n\n- must be a valid url ",
+													"type": "text"
+												},
+												{
+													"key": "username",
+													"value": "amir2312",
+													"description": "must be alpha_numeric only",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/register/client",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"register",
+												"client"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:31:51 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"phone\": \"has already been taken.\",\n        \"username\": \"has already been taken.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Account Created Successfully, Verification Sent",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Google",
+													"description": "max is 255 character",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "201006131243",
+													"description": "must be unique and valid number",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"description": "extensions are jpeg,png,jfif,jpg,webp and max size is 10MB",
+													"type": "file",
+													"src": "/home/attar/Pictures/Screenshot_20240227_172022.png"
+												},
+												{
+													"key": "bio",
+													"value": "This is your user bio",
+													"description": "nullable, it's long text",
+													"type": "text"
+												},
+												{
+													"key": "social_links[0]",
+													"value": "https://facebook.com",
+													"description": "it's an array, pass it with index like ar[index] = value\n\n- must be a valid url ",
+													"type": "text"
+												},
+												{
+													"key": "username",
+													"value": "amir23121_",
+													"description": "must be alpha_numeric only",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/register/client",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"register",
+												"client"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:34:53 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "56"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"User Created Successfully and user verification sent\",\n    \"type\": \"success\",\n    \"code\": 201,\n    \"showToast\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Third Party",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Google",
+											"description": "max is 255 character",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "201006131243",
+											"description": "must be unique and valid number",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"description": "extensions are jpeg,png,jfif,jpg,webp and max size is 10MB",
+											"type": "file",
+											"src": "/home/attar/Pictures/Screenshot_20240227_172022.png"
+										},
+										{
+											"key": "bio",
+											"value": "This is your user bio",
+											"description": "nullable, it's long text",
+											"type": "text"
+										},
+										{
+											"key": "social_links[0]",
+											"value": "https://facebook.com",
+											"description": "it's an array, pass it with index like ar[index] = value\n\n- must be a valid url ",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "amir23121_",
+											"description": "must be alpha_numeric only",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/auth/register/third_party",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"register",
+										"third_party"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Required Values",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{URL}}/auth/register/client",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"register",
+												"client"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:28:43 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"name\": \"field is required.\",\n        \"phone\": \"field is required.\",\n        \"username\": \"field is required.\",\n        \"social_links\": \"field is required.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Unique Columns",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Google",
+													"description": "max is 255 character",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "201006131248",
+													"description": "must be unique and valid number",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"type": "file",
+													"src": "/home/attar/Pictures/Screenshot_20240227_172022.png"
+												},
+												{
+													"key": "bio",
+													"value": "This is your user bio",
+													"description": "nullable, it's long text",
+													"type": "text"
+												},
+												{
+													"key": "social_links[0]",
+													"value": "https://facebook.com",
+													"description": "it's an array, pass it with index like ar[index] = value\n\n- must be a valid url ",
+													"type": "text"
+												},
+												{
+													"key": "username",
+													"value": "amir2312",
+													"description": "must be alpha_numeric only",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/register/client",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"register",
+												"client"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:31:51 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"phone\": \"has already been taken.\",\n        \"username\": \"has already been taken.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Account Created Successfully, Verification Sent",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Google",
+													"description": "max is 255 character",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "201006131243",
+													"description": "must be unique and valid number",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"description": "extensions are jpeg,png,jfif,jpg,webp and max size is 10MB",
+													"type": "file",
+													"src": "/home/attar/Pictures/Screenshot_20240227_172022.png"
+												},
+												{
+													"key": "bio",
+													"value": "This is your user bio",
+													"description": "nullable, it's long text",
+													"type": "text"
+												},
+												{
+													"key": "social_links[0]",
+													"value": "https://facebook.com",
+													"description": "it's an array, pass it with index like ar[index] = value\n\n- must be a valid url ",
+													"type": "text"
+												},
+												{
+													"key": "username",
+													"value": "amir23121_",
+													"description": "must be alpha_numeric only",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/register/client",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"register",
+												"client"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:34:53 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "56"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"User Created Successfully and user verification sent\",\n    \"type\": \"success\",\n    \"code\": 201,\n    \"showToast\": true\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Update Profile",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Mohamed Attar",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "201123456781",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/attar/Pictures/Screenshot_20240228_122740.png"
+										},
+										{
+											"key": "bio",
+											"value": "this is bio",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/auth/profile",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"profile"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Name Is Required",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 09 Apr 2023 16:41:31 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.2.0"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"name\": \"field is required.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "Name Must Be A String",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": 1,\r\n    \"email\": \"google\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 09 Apr 2023 16:49:08 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.2.0"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"name\": \"field must be a string.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "Name Max Length",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"GGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGggggggggggggggggggggggggggggggGGgggggggggggggggggggggggggggggg\",\r\n    \"email\": \"google\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 09 Apr 2023 16:49:37 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.2.0"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"name\": \"field must not be greater than 255 characters.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "Email Is Required",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Google\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 09 Apr 2023 16:42:10 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.2.0"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"email\": \"field is required.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "Email Is not valid",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Google\",\r\n    \"email\": \"google\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 09 Apr 2023 16:50:14 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.2.0"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"email\": \"field must be a valid email address.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "Email Already Exists",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Google\",\r\n    \"email\": \"google@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 09 Apr 2023 16:51:56 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.2.0"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"email\": \"has already been taken.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								}
+							]
+						},
+						{
+							"name": "Fetch Profile Info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/auth/profile",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"profile"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sample of nullable bio, social links",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:55:44 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"client\",\n        \"phone\": \"201123456781\",\n        \"status\": 1,\n        \"email\": null,\n        \"username\": \"client\",\n        \"avatar\": \"http://localhost:8000/storage/default/store.png\",\n        \"type\": \"client\",\n        \"bio\": null,\n        \"social_links\": null\n    },\n    \"message\": \"Data Fetched Successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": false\n}"
+								},
+								{
+									"name": "Fetch Profile Info",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/auth/profile",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"profile"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:57:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "57"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Mohamed Attar\",\n        \"phone\": \"201123456781\",\n        \"status\": 1,\n        \"email\": null,\n        \"username\": \"client\",\n        \"avatar\": \"http://localhost/storage/1/ypbDmJkQhfIQBoYp.png\",\n        \"type\": \"client\",\n        \"bio\": \"this is bio\",\n        \"social_links\": [\n            \"https://google.com\"\n        ]\n    },\n    \"message\": \"Data Fetched Successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": false\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Verify User",
+					"item": [
+						{
+							"name": "One Time Password",
+							"item": [
+								{
+									"name": "Send One Time Password",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"handle\": \"201123456781\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user/one_time_password",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user",
+												"one_time_password"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Handle doesn't exists",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"handle\": \"20100613148\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{URL}}/auth/verify_user/one_time_password",
+													"host": [
+														"{{URL}}"
+													],
+													"path": [
+														"auth",
+														"verify_user",
+														"one_time_password"
+													]
+												}
+											},
+											"status": "Unprocessable Content",
+											"code": 422,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.2.14"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Tue, 02 Apr 2024 23:36:00 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "X-RateLimit-Limit",
+													"value": "3"
+												},
+												{
+													"key": "X-RateLimit-Remaining",
+													"value": "2"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"data\": {\n        \"user\": \"User does not exists\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+										},
+										{
+											"name": "Send One Time Password",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"handle\": \"201006131248\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{URL}}/auth/verify_user/one_time_password",
+													"host": [
+														"{{URL}}"
+													],
+													"path": [
+														"auth",
+														"verify_user",
+														"one_time_password"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.2.14"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Tue, 02 Apr 2024 23:36:20 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "X-RateLimit-Limit",
+													"value": "3"
+												},
+												{
+													"key": "X-RateLimit-Remaining",
+													"value": "1"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"data\": null,\n    \"message\": \"One time password has been sent\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+										},
+										{
+											"name": "Sending Too many requests per minutes Copy 2",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"handle\": \"201006131243\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{URL}}/auth/verify_user/resend",
+													"host": [
+														"{{URL}}"
+													],
+													"path": [
+														"auth",
+														"verify_user",
+														"resend"
+													]
+												}
+											},
+											"status": "Too Many Requests",
+											"code": 429,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.2.14"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Tue, 02 Apr 2024 23:44:05 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "X-RateLimit-Limit",
+													"value": "60"
+												},
+												{
+													"key": "X-RateLimit-Remaining",
+													"value": "48"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"data\": null,\n    \"message\": \"Too Many Attempts.\",\n    \"type\": \"error\",\n    \"code\": 429,\n    \"showToast\": true\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Verify User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"handle\": \"201006131243\",\r\n    \"code\": 1094\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/verify_user",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"verify_user"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Code is wrong",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"handle\": \"201006131243\",\r\n    \"code\": 10940\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:40:41 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "10"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "9"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"code\": \"Invalid code for that handle\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "User has been verified",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"handle\": \"201006131243\",\r\n    \"code\": 1094\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:40:58 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "10"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "8"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"User has been verified\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Sending Too many requests per minutes Copy",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"handle\": \"201006131243\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user/resend",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user",
+												"resend"
+											]
+										}
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:44:05 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "48"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"Too Many Attempts.\",\n    \"type\": \"error\",\n    \"code\": 429,\n    \"showToast\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Resend Phone Verification",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"handle\": \"201006131243\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/verify_user/resend",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"verify_user",
+										"resend"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Handle not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"handle\": \"client@admin.coms\",\r\n    \"code\": 8136\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 21 Sep 2023 09:42:41 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1q PHP/8.1.10"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.1.10"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"handle\": \"Handle does not exists\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "User has been verified before",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"handle\": \"201006131248\",\r\n    \"code\": 8458\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:39:16 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "10"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "9"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"user\": \"User already verified\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Verification Code Sent",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"handle\": \"201006131243\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user/resend",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user",
+												"resend"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:43:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "10"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "8"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"Verification code sent successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+								},
+								{
+									"name": "Sending Too many requests per minutes",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"handle\": \"201006131243\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/auth/verify_user/resend",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"verify_user",
+												"resend"
+											]
+										}
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.14"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 02 Apr 2024 23:44:05 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "48"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": null,\n    \"message\": \"Too Many Attempts.\",\n    \"type\": \"error\",\n    \"code\": 429,\n    \"showToast\": true\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Social Auth",
+					"item": [
+						{
+							"name": "Callback",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "access_token",
+											"value": "ya29.a0AfB_byBJ5p7M3LQNUV_JDONutdUXG1TFuehxYqS-R2jprXxQ0mMI6dluZs3B8VbNkc5VoVHiXrMSVMID50jUb_27d0dtNuO0vv7h_fqBQPi8n93coYK6pAmYQuRLaNipSDm_JLF_CoekHmp0lPffhZ4OfBgVOxdRqNsaCgYKAfsSARMSFQHGX2MiSUPmnE4tdxMs9f7I6pkOCA0170",
+											"type": "text"
+										},
+										{
+											"key": "secret",
+											"value": "asdfasdf",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "provider",
+											"value": "google",
+											"description": "facebook, google",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/auth/social/callback",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"social",
+										"callback"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "The Provided Credentials Is Wrong",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "access_token",
+													"value": "google",
+													"description": "twitter, facebook, google",
+													"type": "text"
+												},
+												{
+													"key": "secret",
+													"value": "asdfasdf",
+													"type": "text"
+												},
+												{
+													"key": "provider",
+													"value": "google",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/social/callback",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"social",
+												"callback"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 25 Sep 2023 07:38:44 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1q PHP/8.1.10"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.1.10"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"invalid_credentials\": \"Invalid provider credentials\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "No Public Email On That Provider",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "access_token",
+													"value": "google",
+													"description": "twitter, facebook, google",
+													"type": "text"
+												},
+												{
+													"key": "secret",
+													"value": "asdfasdf",
+													"type": "text"
+												},
+												{
+													"key": "provider",
+													"value": "google",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/social/callback",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"social",
+												"callback"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 25 Sep 2023 07:42:01 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1q PHP/8.1.10"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.1.10"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"email\": \"Email field is required.\"\n    },\n    \"message\": \"validation errors\",\n    \"type\": \"error\",\n    \"code\": 422\n}"
+								},
+								{
+									"name": "User Logged In Successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "access_token",
+													"value": "google",
+													"description": "twitter, facebook, google",
+													"type": "text"
+												},
+												{
+													"key": "secret",
+													"value": "asdfasdf",
+													"type": "text"
+												},
+												{
+													"key": "provider",
+													"value": "google",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{URL}}/auth/social/callback",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"auth",
+												"social",
+												"callback"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 25 Sep 2023 07:47:31 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1q PHP/8.1.10"
+										},
+										{
+											"key": "Vary",
+											"value": "Authorization"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.1.10"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": \"c3355fda-e01b-4c47-a3cf-6b08f1dc3aa6\",\n        \"name\": \"client\",\n        \"phone\": \"+13349318742\",\n        \"address\": \"410 Murl Throughway\\nDooleyfurt, KY 35654-4446\",\n        \"company_id\": \"5505860851396560\",\n        \"email\": \"client@admin.com\",\n        \"avatar\": \"http://refactored-value.test/storage/default/user.png\",\n        \"type\": \"client\",\n        \"token\": \"5|qp1PyLJDxaqkyebz5SSKNZy8LSM1XQDZtWp6NHOVf984465d\"\n    },\n    \"message\": \"User Logged In Successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "Complete Registration",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    // each value of these is required only if the current value of it is null, \n    // else it's excluded\n    \"username\": \"mohamed12312_\",\n    \"phone\": \"2011231231211\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/complete_signup",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"complete_signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Password Manipulation",
+					"item": [
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"old_password\": \"201123456780\",\n    \"new_password\": \"120212312\",\n    \"new_password_confirmation\": \"120212312\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/password/change_password",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"change_password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Remove Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/remove_account",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"remove_account"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User logged out and deleted",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/auth/remove_account",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"remove_account"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.14"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Apr 2024 23:46:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"message\": \"User Deleted Successfully\",\n    \"type\": \"success\",\n    \"code\": 200,\n    \"showToast\": true\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AUTH_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "https://api.spotkradmin.online",
+			"type": "string"
+		}
+	]
+}

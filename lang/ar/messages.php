@@ -93,4 +93,6 @@ return [
     'employee' => 'الموظف',
     'finished' => 'تم الانتهاء بنجاح',
     ...BaseTranslationHelper::ar(),
+    ...\Modules\Auth\Helpers\AuthTranslationHelper::ar(),
+
 ];

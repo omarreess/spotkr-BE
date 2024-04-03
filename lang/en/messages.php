@@ -93,4 +93,5 @@ return [
     'employee' => 'Employee',
     'finished' => 'Finished Successfully',
     ...BaseTranslationHelper::en(),
+    ...\Modules\Auth\Helpers\AuthTranslationHelper::en(),
 ];

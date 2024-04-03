@@ -32,8 +32,10 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use const Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -67,11 +69,15 @@ return Application::configure(basePath: dirname(__DIR__))
             //'permission' => PermissionMiddleware::class,
             'account_must_be_active' => AccountMustBeActive::class,
             'must_be_verified' => MustBeVerified::class,
-            'user_type_in' => CheckUserType::class,
+            // 'user_type_in' => CheckUserType::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $httpResponse = (new class { use \App\Traits\HttpResponse; });
+
+        $exceptions->renderable(function(AccessDeniedHttpException $e) use ($httpResponse){
+            return $httpResponse->forbiddenResponse($e->getMessage());
+        });
 
 //        $exceptions->renderable(
 //            function (
