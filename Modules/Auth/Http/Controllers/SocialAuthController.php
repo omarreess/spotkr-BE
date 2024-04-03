@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Modules\Auth\Enums\UserTypeEnum;
 use Modules\Auth\Http\Requests\SocialAuthRequest;
 use Modules\Auth\Services\SocialiteService;
 use Modules\Auth\Transformers\UserResource;
@@ -26,12 +27,32 @@ class SocialAuthController extends Controller
 
     /**
      * @throws FileCannotBeAdded
+     * @throws FileIsTooBig
+     * @throws FileDoesNotExist
+     */
+    public function client(SocialAuthRequest $request)
+    {
+        return $this->handleProviderCallback($request->validated(), UserTypeEnum::CLIENT);
+    }
+
+    /**
+     * @throws FileCannotBeAdded
+     * @throws FileIsTooBig
+     * @throws FileDoesNotExist
+     */
+    public function thirdParty(SocialAuthRequest $request)
+    {
+        return $this->handleProviderCallback($request->validated(), UserTypeEnum::THIRD_PARTY);
+    }
+
+    /**
+     * @throws FileCannotBeAdded
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function handleProviderCallback(SocialAuthRequest $request): JsonResponse
+    public function handleProviderCallback(array $data, string $type): JsonResponse
     {
-        $result = $this->socialite->handleProviderCallback($request->validated());
+        $result = $this->socialite->handleProviderCallback($data, $type);
 
         if (! $result instanceof User) {
             return $this->validationErrorsResponse($result);

@@ -1,4 +1,5 @@
 {
     "Auth": true,
-    "Otp": true
+    "Otp": true,
+    "Country": true
 }

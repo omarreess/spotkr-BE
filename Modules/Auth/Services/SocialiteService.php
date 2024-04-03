@@ -20,7 +20,7 @@ class SocialiteService
      * @throws FileIsTooBig
      * @throws FileDoesNotExist
      */
-    public function handleProviderCallback(array $data)
+    public function handleProviderCallback(array $data, string $type)
     {
         $errors = [];
         $requestProvider = $data['provider'];
@@ -56,11 +56,11 @@ class SocialiteService
 
             $existingUser = User::create([
                 'email' => $email,
-                'email_verified_at' => now(),
+                AuthEnum::VERIFIED_AT => now(),
                 'name' => $user->getName(),
                 'status' => true,
                 'password' => null,
-                'type' => UserTypeEnum::numericType(UserTypeEnum::CLIENT),
+                'type' => $type,
                 'social_provider' => $requestProvider,
             ]);
 

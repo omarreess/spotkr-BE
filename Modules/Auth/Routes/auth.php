@@ -27,7 +27,10 @@ use Modules\Auth\Http\Controllers\VerifyController;
 
 Route::group(['middleware' => 'guest'], function(){
     // Social Auth
-    Route::post('social/callback', [SocialAuthController::class, 'handleProviderCallback']);
+    Route::group(['prefix' => 'social/callback'], function(){
+        Route::post('client', [SocialAuthController::class, 'client']);
+        Route::post('third_party', [SocialAuthController::class, 'thirdParty']);
+    });
 
     // Login
     Route::group(['prefix' => 'login'], function () {
