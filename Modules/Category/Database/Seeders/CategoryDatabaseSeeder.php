@@ -66,16 +66,16 @@ class CategoryDatabaseSeeder extends Seeder
         ];
 
         foreach($subCategories as $key => $subCategory) {
-            $parent = Category::create(['name' => $key, 'parent_id' => $sport->id]);
+            $parent = Category::create(['name' => "$key $sport->name", 'parent_id' => $sport->id]);
             foreach ($subCategory as $value) {
-                Category::create(['name' => "$value", 'parent_id' => $parent->id]);
+                Category::create(['name' => "$value $sport->name", 'parent_id' => $parent->id]);
             }
         }
 
         foreach($subCategories as $key => $subCategory) {
-            $parent = Category::create(['name' => $key, 'parent_id' => $course->id]);
+            $parent = Category::create(['name' => "$key $course->name", 'parent_id' => $course->id]);
             foreach ($subCategory as $value) {
-                Category::create(['name' => "$value", 'parent_id' => $parent->id]);
+                Category::create(['name' => "$value $course->name", 'parent_id' => $parent->id]);
             }
         }
     }
