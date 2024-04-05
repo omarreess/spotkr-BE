@@ -94,5 +94,5 @@ return [
     'finished' => 'تم الانتهاء بنجاح',
     ...BaseTranslationHelper::ar(),
     ...\Modules\Auth\Helpers\AuthTranslationHelper::ar(),
-
+    ...\Modules\Coupon\Helpers\CouponTranslationHelper::ar(),
 ];

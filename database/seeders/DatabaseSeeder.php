@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Modules\Auth\Database\Seeders\UserSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Country\Database\Seeders\CountryDatabaseSeeder;
+use Modules\Coupon\Database\Seeders\CouponDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CountryDatabaseSeeder::class,
             CategoryDatabaseSeeder::class,
+            CouponDatabaseSeeder::class,
         ]);
     }
 }

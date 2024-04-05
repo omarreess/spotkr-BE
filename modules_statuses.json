@@ -3,5 +3,6 @@
     "Otp": true,
     "Country": true,
     "User": true,
-    "Category": true
+    "Category": true,
+    "Coupon": true
 }

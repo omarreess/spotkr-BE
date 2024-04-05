@@ -94,4 +94,5 @@ return [
     'finished' => 'Terminé avec succès',
     ...BaseTranslationHelper::fr(),
     ...\Modules\Auth\Helpers\AuthTranslationHelper::fr(),
+    ...\Modules\Coupon\Helpers\CouponTranslationHelper::fr(),
 ];

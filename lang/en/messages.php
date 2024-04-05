@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\BaseTranslationHelper;
+use Modules\Auth\Helpers\AuthTranslationHelper;
 
 return [
     'created' => 'Created Successfully',
@@ -93,5 +94,6 @@ return [
     'employee' => 'Employee',
     'finished' => 'Finished Successfully',
     ...BaseTranslationHelper::en(),
-    ...\Modules\Auth\Helpers\AuthTranslationHelper::en(),
+    ...AuthTranslationHelper::en(),
+    ...\Modules\Coupon\Helpers\CouponTranslationHelper::en(),
 ];
