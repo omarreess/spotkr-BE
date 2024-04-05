@@ -17,6 +17,11 @@ use Modules\Coupon\Http\Controllers\CouponController;
 |
 */
 
-Route::apiResource('admin/coupons', CouponController::class)->middleware(array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
+
+Route::group(['middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
     'user_type_in:'. UserTypeEnum::ADMIN
-]))->except(['update']);
+])], function(){
+    Route::patch('admin/coupons/{coupon}', [CouponController::class, 'changeStatus']);
+    Route::apiResource('admin/coupons', CouponController::class)->except(['update']);
+});
+

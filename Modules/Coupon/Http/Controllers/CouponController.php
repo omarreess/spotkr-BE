@@ -5,6 +5,7 @@ namespace Modules\Coupon\Http\Controllers;
 use App\Traits\HttpResponse;
 use Illuminate\Routing\Controller;
 use Modules\Coupon\Entities\Coupon;
+use Modules\Coupon\Http\Requests\ChangeCouponStatusRequest;
 use Modules\Coupon\Http\Requests\CouponRequest;
 use Modules\Coupon\Services\CouponService;
 use Modules\Coupon\Transformers\CouponResource;
@@ -39,6 +40,13 @@ class CouponController extends Controller
         $this->couponService->store($request->validated());
 
         return $this->createdResponse(message: translate_success_message('coupon', 'created'));
+    }
+
+    public function changeStatus(ChangeCouponStatusRequest $request, Coupon $coupon)
+    {
+        $coupon->forceFill($request->validated())->save();
+
+        return $this->okResponse(message: translate_success_message('status', 'updated'));
     }
 
     public function destroy(Coupon $coupon)

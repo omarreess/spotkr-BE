@@ -22,5 +22,6 @@ class Coupon extends Model
 
     protected $casts = [
         'status' => 'boolean',
+        'discount' => 'double',
     ];
 }
