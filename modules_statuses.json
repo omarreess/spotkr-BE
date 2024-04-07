@@ -4,5 +4,8 @@
     "Country": true,
     "User": true,
     "Category": true,
-    "Coupon": true
+    "Coupon": true,
+    "Activity": true,
+    "Markable": true,
+    "FcmNotification": true
 }

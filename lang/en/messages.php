@@ -2,6 +2,7 @@
 
 use App\Helpers\BaseTranslationHelper;
 use Modules\Auth\Helpers\AuthTranslationHelper;
+use Modules\Coupon\Helpers\CouponTranslationHelper;
 
 return [
     'created' => 'Created Successfully',
@@ -95,5 +96,7 @@ return [
     'finished' => 'Finished Successfully',
     ...BaseTranslationHelper::en(),
     ...AuthTranslationHelper::en(),
-    ...\Modules\Coupon\Helpers\CouponTranslationHelper::en(),
+    ...CouponTranslationHelper::en(),
+    ...\Modules\Activity\Helpers\ActivityTranslationHelper::en(),
+    \Modules\FcmNotification\Helpers\NotificationTranslationHelper::en(),
 ];

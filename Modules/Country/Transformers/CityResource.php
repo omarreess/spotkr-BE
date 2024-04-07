@@ -19,8 +19,8 @@ class CityResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'image' => $this->whenNotNull(ResourceHelper::getFirstMediaOriginalUrl($this, 'image')),
-            'activities_count' => $this->activities_count ?: 0,
-//            'activities_count' => $this->whenHas('activities_count', $this->activities_count ?: 0),
+            'country' => CountryResource::make($this->whenLoaded('country')),
+            'activities_count' => $this->whenHas('activities_count', $this->activities_count ?: 0),
         ];
     }
 }

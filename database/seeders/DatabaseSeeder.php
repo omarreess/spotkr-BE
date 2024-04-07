@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Activity\Database\Seeders\ActivityDatabaseSeeder;
 use Modules\Auth\Database\Seeders\UserSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Country\Database\Seeders\CountryDatabaseSeeder;
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             CountryDatabaseSeeder::class,
             CategoryDatabaseSeeder::class,
             CouponDatabaseSeeder::class,
+            ActivityDatabaseSeeder::class,
         ]);
     }
 }

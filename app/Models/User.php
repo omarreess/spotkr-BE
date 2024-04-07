@@ -68,4 +68,9 @@ class User extends Authenticatable implements HasMedia
     {
         return new UserBuilder($query);
     }
+
+    public function routeNotificationForFcm(): ?string
+    {
+        return $this->fcm_token;
+    }
 }

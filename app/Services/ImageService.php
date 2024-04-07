@@ -22,11 +22,11 @@ class ImageService
      */
     public function storeMedia(string $collectionName, string $requestFileName): void
     {
-        if (isset($this->data[$requestFileName]) && $requestFileName != null) {
+        if (isset($this->data[$requestFileName])) {
             (new FileOperationService())->storeImageFromRequest(
                 $this->model,
-                $requestFileName,
                 $collectionName,
+                $requestFileName,
             );
         }
     }
@@ -35,12 +35,13 @@ class ImageService
      * Update just one media, this function delete then add the new media
      * @param string $collectionName
      * @param string $requestFileName
+     * @param string $resetMainImageCollectionName
      * @return void
      */
-    public function updateMedia(string $collectionName, string $requestFileName): void
+    public function updateMedia(string $collectionName, string $requestFileName, string $resetMainImageCollectionName = 'registerMediaCollections'): void
     {
-        if (isset($this->data[$requestFileName]) && $requestFileName != null) {
-            $this->model->registerMediaCollections();
+        if (isset($this->data[$requestFileName])) {
+            $this->model->{$resetMainImageCollectionName()};
 
             self::storeMedia($collectionName, $requestFileName);
         }

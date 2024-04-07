@@ -15,4 +15,11 @@ class UserBuilder extends Builder
     {
         return $this->where('type', UserTypeEnum::THIRD_PARTY);
     }
+
+    public function whereIsAdmin(): static
+    {
+        $this->whereType(UserTypeEnum::ADMIN);
+
+        return $this;
+    }
 }

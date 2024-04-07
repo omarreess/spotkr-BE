@@ -11,6 +11,7 @@
         "php": "^8.2",
         "elattar/fast-paginate": "*",
         "elattar/prepare": "^3.1",
+        "laravel-notification-channels/fcm": "^4.3",
         "laravel/framework": "^11.0",
         "laravel/octane": "^2.3",
         "laravel/sanctum": "^4.0",

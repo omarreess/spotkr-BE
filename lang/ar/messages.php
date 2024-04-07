@@ -95,4 +95,6 @@ return [
     ...BaseTranslationHelper::ar(),
     ...\Modules\Auth\Helpers\AuthTranslationHelper::ar(),
     ...\Modules\Coupon\Helpers\CouponTranslationHelper::ar(),
+    ...\Modules\Activity\Helpers\ActivityTranslationHelper::ar(),
+    \Modules\FcmNotification\Helpers\NotificationTranslationHelper::ar(),
 ];
