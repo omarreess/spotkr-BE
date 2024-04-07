@@ -19,6 +19,7 @@ class ThirdPartyController extends Controller
     {
         $thirdParties = User::query()
             ->whereIsThirdParty()
+            ->searchable(['name', 'email', 'phone'])
             ->latest()
             ->paginatedCollection();
 
