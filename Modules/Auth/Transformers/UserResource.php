@@ -19,8 +19,7 @@ class UserResource extends JsonResource
             'username' => $this->whenHas('username'),
             'rolesIds' => $this->whenHas('rolesIds'),
             'avatar' => $this->whenNotNull(
-                ResourceHelper::getMedia(
-                    AuthEnum::AVATAR_COLLECTION_NAME,
+                ResourceHelper::getFirstMediaOriginalUrl(
                     $this,
                     AuthEnum::AVATAR_RELATIONSHIP_NAME,
                     'user.png'

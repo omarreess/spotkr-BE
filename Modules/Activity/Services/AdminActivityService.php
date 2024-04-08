@@ -15,6 +15,7 @@ class AdminActivityService extends BaseActivityService
         return $this
             ->baseIndex()
             ->where('third_party_id', $thirdParty)
+            ->with('thirdParty:id,name')
             ->paginatedCollection();
     }
 
