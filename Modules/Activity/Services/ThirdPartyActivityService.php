@@ -5,19 +5,34 @@ namespace Modules\Activity\Services;
 use App\Exceptions\ValidationErrorsException;
 use App\Models\User;
 use App\Services\ImageService;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use Modules\Activity\Enums\ActivityStatusEnum;
-use Modules\Activity\Enums\ActivityTypeEnum;
+use Modules\Activity\Entities\Activity;
 use Modules\Activity\Http\Controllers\ThirdPartyActivityController;
-use Modules\Category\Entities\Category;
-use Modules\Country\Entities\City;
+use Modules\Category\Services\CategoryService;
+use Modules\Country\Services\CityService;
 use Modules\FcmNotification\Enums\NotificationTypeEnum;
 use Modules\FcmNotification\Notifications\FcmNotification;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class ThirdPartyActivityService extends BaseActivityService
 {
+    private CityService $cityService;
+    private CategoryService $categoryService;
+
+    public function __construct(
+        Activity $activityModel,
+        CityService $cityService,
+        CategoryService $categoryService,
+    )
+    {
+        parent::__construct($activityModel);
+
+        $this->cityService = $cityService;
+        $this->categoryService = $categoryService;
+    }
+
     public function index()
     {
         return $this->baseIndex()
@@ -37,74 +52,15 @@ class ThirdPartyActivityService extends BaseActivityService
      */
     public function store(array $data)
     {
-        $eventOrTrip = in_array($data['type'], [ActivityTypeEnum::EVENT, ActivityTypeEnum::TRIP]);
+        $this->storeOrUpdate($data);
+    }
 
-        //TODO validate the category_id
-        $category = Category::query()
-            ->when(
-                $eventOrTrip,
-                fn(Builder $builder)  => $builder->whereNull('parent_id')->whereName($data['type'])
-            )
-            ->when(! $eventOrTrip, fn(Builder $builder) => $builder->whereNotNull('parent_id')->whereId($data['category_id']))
-            ->first();
-
-        if(! $category)
-        {
-            throw new ValidationErrorsException([
-                'category' => translate_error_message('category', 'not_exists'),
-            ]);
-        }
-
-        //TODO validate city
-
-        $city = City::query()
-            ->where('id', $data['city_id'])
-            ->first();
-
-        if(! $city)
-        {
-            throw new ValidationErrorsException([
-                'city' => translate_error_message('city', 'not_exists'),
-            ]);
-        }
-
-        DB::transaction(function() use ($data, $category){
-            $activity = $this->activityModel::create($data + [
-                    'category_id' => $category->id,
-            ]);
-
-            $imageService = new ImageService($activity, $data);
-
-            $imageService->storeMedia(
-                ThirdPartyActivityController::MAIN_IMAGE_COLLECTION_NAME,
-                'main_image',
-            );
-
-            ImageService::addOtherMedias(
-                $activity,
-                $data,
-                ThirdPartyActivityController::OTHER_IMAGES_COLLECTION_NAME,
-                'other_images'
-            );
-
-            Notification::send(User::query()->whereIsAdmin()->first(), new FcmNotification(
-                'activity_created_title',
-                'activity_created_body',
-                additionalData: [
-                    'model_id' => $activity->id,
-                    'type' => NotificationTypeEnum::ACTIVITY_CREATED,
-                ],
-                shouldTranslate: [
-                    'title' => true,
-                    'body' => true,
-                ],
-                translatedAttributes: [
-                    'activity_created_body' => [
-                        'name' => $activity->name,
-                    ],
-                ],
-            ));
-        });
+    /**
+     * @throws ValidationErrorsException
+     */
+    public function update(array $data, $id)
+    {
+        $this->storeOrUpdate($data, $id);
     }
 
     public function destroy($activityId)
@@ -113,5 +69,137 @@ class ThirdPartyActivityService extends BaseActivityService
             ->forCurrentUser()
             ->findOrFail($activityId)
             ->delete();
+    }
+
+    /**
+     * @throws ValidationErrorsException
+     */
+    private function storeOrUpdate(array $data, $id = null): void
+    {
+        $inUpdate = ! is_null($id);
+
+        if($inUpdate)
+        {
+            $activity = $this->activityModel::query()
+                ->forCurrentUser()
+                ->findOrFail($id);
+        }
+
+        $category = $this->categoryService->categoryBasedTypeExists($data['category_id'] ?? null, $data['type']);
+
+        $this->cityService->cityExists($data['city_id']);
+
+        $this->removeUnRelatedFields($data);
+
+        $activity = $activity ?? null;
+
+        $activity = DB::transaction(function() use ($data, $category, $inUpdate, $activity){
+            if(! $inUpdate)
+            {
+                $activity = $this->activityModel::create($data + ['category_id' => $category->id]);
+            } else {
+                $activity->update($data + ['category_id' => $category->id]);
+            }
+
+            $this->syncMedia($inUpdate, $activity, $data);
+
+            return $activity;
+        });
+
+        if($inUpdate)
+        {
+            $this->activityUpdatedNotification($activity);
+        }
+         else {
+             $this->activityCreatedNotification($activity);
+         }
+    }
+
+    /**
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
+    private function syncMedia(bool $inUpdate, Activity $activity, array $data): void
+    {
+        $imageService = ImageService::createInstance($activity, $data);
+
+        if($inUpdate)
+        {
+            $imageService->updateOneMedia(
+                ThirdPartyActivityController::MAIN_IMAGE_COLLECTION_NAME,
+                'main_image',
+            );
+
+            $imageService->updateMultipleMedia(
+                ThirdPartyActivityController::OTHER_IMAGES_COLLECTION_NAME,
+                'deleted_images_ids',
+                'other_images',
+            );
+
+        } else {
+            $imageService->storeOneMediaFromRequest(
+                ThirdPartyActivityController::MAIN_IMAGE_COLLECTION_NAME,
+                'main_image',
+            );
+
+            $imageService->storeMultipleMedia(
+                ThirdPartyActivityController::OTHER_IMAGES_COLLECTION_NAME
+            );
+        }
+    }
+
+    public function activityCreatedNotification(Activity $activity)
+    {
+        $this->sendActivityNotification($activity);
+    }
+
+    public function activityUpdatedNotification(Activity $activity)
+    {
+        if($activity->wasChanged()) {
+            $this->sendActivityNotification($activity, true);
+        }
+    }
+
+    private function sendActivityNotification(Activity $activity, bool $inUpdate = false): void
+    {
+        $title = $inUpdate ? 'activity_updated_title' : 'activity_created_title';
+        $body = $inUpdate ? 'activity_updated_body' : 'activity_created_body';
+        $notificationType = $inUpdate ? NotificationTypeEnum::ACTIVITY_UPDATED : NotificationTypeEnum::ACTIVITY_CREATED;
+
+        Notification::send(User::query()->whereIsAdmin()->first(), new FcmNotification(
+            $title,
+            $body,
+            additionalData: [
+                'model_id' => $activity->id,
+                'type' => $notificationType,
+            ],
+            shouldTranslate: [
+                'title' => true,
+                'body' => true,
+            ],
+            translatedAttributes: [
+                $body => [
+                    'name' => $activity->name,
+                ],
+            ],
+        ));
+    }
+
+    private function removeUnRelatedFields(array &$data): void
+    {
+        if(! isset($data['hold_on']))
+        {
+            $data['hold_on'] = null;
+        }
+
+        if(! isset($data['open_times']))
+        {
+            $data['open_times'] = null;
+        }
+
+        if(! isset($data['course_bundles']))
+        {
+            $data['course_bundles'] = null;
+        }
     }
 }

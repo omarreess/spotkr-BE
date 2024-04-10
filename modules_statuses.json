@@ -7,5 +7,6 @@
     "Coupon": true,
     "Activity": true,
     "Markable": true,
-    "FcmNotification": true
+    "FcmNotification": true,
+    "Review": true
 }

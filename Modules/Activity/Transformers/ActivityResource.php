@@ -13,12 +13,6 @@ use Modules\Markable\Helpers\FavoriteHelper;
 
 class ActivityResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request
-     * @return array
-     */
     public function toArray($request)
     {
         return [
@@ -37,8 +31,8 @@ class ActivityResource extends JsonResource
             'email' => $this->whenHas('email'),
             'website' => $this->whenHas('website'),
             'main_image' => $this->whenNotNull(ResourceHelper::getFirstMediaOriginalUrl($this, 'mainImage')),
-            'hold_on' => $this->whenHas('hold_on', Carbon::parse($this->hold_on)->format(DateHelper::defaultDateTimeFormat())),
-            'created_at' => $this->whenNotNull($this->created_at, fn() => Carbon::parse($this->created_at)->format(DateHelper::amPmFormat())),
+            'hold_on' => $this->whenHas('hold_at', Carbon::parse($this->hold_on)->format(DateHelper::defaultDateTimeFormat())),
+            'created_at' => $this->whenHas('created_at', fn() => ! $this->created_at ? null : Carbon::parse($this->created_at)->format(DateHelper::amPmFormat())),
             'description' => $this->whenHas('description'),
             'category' => CategoryResource::make($this->whenLoaded('category')),
             'address' => $this->whenHas('address'),
@@ -68,7 +62,9 @@ class ActivityResource extends JsonResource
                     'sub_category' => $subCategory,
                     'sub_sub_category' => $subSubCategory,
                 ];
-            })
+            }),
+            'open_times' => $this->whenHas('open_times'),
+            'course_bundles' => $this->whenHas('course_bundles'),
         ];
     }
 }

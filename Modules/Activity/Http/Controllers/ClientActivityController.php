@@ -2,6 +2,8 @@
 
 namespace Modules\Activity\Http\Controllers;
 
+use App\Helpers\GeneralHelper;
+use App\Helpers\RequestHelper;
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -16,6 +18,7 @@ class ClientActivityController extends Controller
 
     public function __construct(ClientActivityService $clientActivityService)
     {
+        RequestHelper::loginIfHasToken($this);
         $this->clientActivityService = $clientActivityService;
     }
 

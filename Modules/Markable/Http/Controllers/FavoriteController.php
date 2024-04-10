@@ -4,6 +4,8 @@ namespace Modules\Markable\Http\Controllers;
 
 use App\Traits\HttpResponse;
 use Illuminate\Routing\Controller;
+use Modules\Activity\Entities\Activity;
+use Modules\Activity\Enums\ActivityStatusEnum;
 use Modules\Markable\Helpers\FavoriteHelper;
 use Modules\Markable\Http\Requests\FavoriteToggleRequest;
 use Modules\Product\Entities\BranchProduct;
@@ -13,11 +15,7 @@ class FavoriteController extends Controller
     use HttpResponse;
 
     public static array $allowedTypes = [
-        'product' => BranchProduct::class,
-    ];
-
-    public static array $hasStatus = [
-        'product' => true,
+        'activity' => Activity::class,
     ];
 
     public function __invoke(FavoriteToggleRequest $request)
@@ -26,15 +24,18 @@ class FavoriteController extends Controller
         $modelID = $request->input('model_id');
         $errors = [];
 
-        $modelObject = (static::$allowedTypes[$modelType])::query()
-            ->whereId($modelID)
-            ->when(static::$hasStatus[$modelType], fn ($query) => $query->whereStatus(true))
-            ->firstOr(function () use (&$errors) {
-                $errors['model_id'] = translate_error_message('model', 'not_exists');
-            });
+        $modelBuilder = (static::$allowedTypes[$modelType])::query()->whereId($modelID);
 
-        if ($modelObject) {
-            FavoriteHelper::model()::toggle($modelObject, auth()->user());
+        if ($modelType == 'activity') {
+            $modelBuilder = $modelBuilder->where('status', ActivityStatusEnum::ACCEPTED);
+        }
+
+        $modelBuilder = $modelBuilder->firstOr(function () use (&$errors) {
+            $errors['model_id'] = translate_error_message('model', 'not_exists');
+        });
+
+        if ($modelBuilder) {
+            FavoriteHelper::model()::toggle($modelBuilder, auth()->user());
 
             return $this->okResponse(
                 message: translate_success_message('model', 'toggled')

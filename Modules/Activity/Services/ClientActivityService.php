@@ -2,6 +2,8 @@
 
 namespace Modules\Activity\Services;
 
+use Modules\Activity\Entities\Activity;
+
 class ClientActivityService extends BaseActivityService
 {
     public function index()

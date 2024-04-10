@@ -99,4 +99,6 @@ return [
     ...CouponTranslationHelper::en(),
     ...\Modules\Activity\Helpers\ActivityTranslationHelper::en(),
     \Modules\FcmNotification\Helpers\NotificationTranslationHelper::en(),
+    ...\Modules\Markable\Helpers\FavoriteTranslationHelper::en(),
+    'reviewed' => 'Reviewed Successfully',
 ];

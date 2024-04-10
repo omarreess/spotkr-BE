@@ -97,4 +97,6 @@ return [
     ...\Modules\Coupon\Helpers\CouponTranslationHelper::ar(),
     ...\Modules\Activity\Helpers\ActivityTranslationHelper::ar(),
     \Modules\FcmNotification\Helpers\NotificationTranslationHelper::ar(),
+    ...\Modules\Markable\Helpers\FavoriteTranslationHelper::ar(),
+    'reviewed' => 'تمت المراجعة بنجاح',
 ];

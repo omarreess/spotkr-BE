@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Activity\Http\Controllers\ThirdPartyActivityController;
 use Modules\Category\Entities\Category;
 use Modules\Country\Entities\City;
+use Modules\Review\Traits\ReviewRelation;
 
 trait ActivityRelations
 {
+    use ReviewRelation;
+
     public function thirdParty(): BelongsTo
     {
         return $this->belongsTo(User::class, 'third_party_id');

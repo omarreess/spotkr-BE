@@ -2,6 +2,7 @@
 
 namespace Modules\Country\Services;
 
+use App\Exceptions\ValidationErrorsException;
 use Modules\Country\Entities\City;
 
 class CityService
@@ -35,13 +36,22 @@ class CityService
         return $cities;
     }
 
-    public function index()
+    /**
+     * @throws ValidationErrorsException
+     */
+    public function cityExists($id, string $errorKey = 'city_id')
     {
+        $city = City::query()
+            ->where('id', $id)
+            ->first();
 
-    }
+        if(! $city)
+        {
+            throw new ValidationErrorsException([
+                $errorKey => translate_error_message('city', 'not_exists'),
+            ]);
+        }
 
-    private function randomCities(bool $paginated = true)
-    {
-
+        return $city;
     }
 }

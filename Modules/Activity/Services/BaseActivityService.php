@@ -38,7 +38,7 @@ class BaseActivityService
                 'phone',
                 'price',
                 'discount',
-                'open_times',
+//                'open_times',
                 'category_id',
                 'city_id',
                 'include_in_adrenaline_rush',

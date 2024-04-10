@@ -7,6 +7,7 @@ use Modules\Activity\Http\Controllers\AdminActivityController;
 use Modules\Activity\Http\Controllers\ClientActivityController;
 use Modules\Activity\Http\Controllers\ThirdPartyActivityController;
 use Modules\Auth\Enums\UserTypeEnum;
+use Modules\Review\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,17 +23,19 @@ use Modules\Auth\Enums\UserTypeEnum;
 Route::group(['middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
     'user_type_in:'. UserTypeEnum::THIRD_PARTY,
 ])], function(){
-    Route::post('{activity}', [ThirdPartyActivityController::class, 'update']);
+    Route::post('third_parties/activities/{activity}', [ThirdPartyActivityController::class, 'update']);
     Route::apiResource('third_parties/activities', ThirdPartyActivityController::class)->except(['update']);
 });
 
 Route::group(['prefix' => 'clients/activities'], function(){
     Route::get('', [ClientActivityController::class, 'index']);
     Route::get('{activity}', [ClientActivityController::class, 'show']);
+    Route::get('{activity}/reviews', [ReviewController::class, 'activity']);
+//    Route::get('{activity}/related')
 });
 
 Route::group(['prefix' => 'third_parties/{thirdParty}/activities', 'middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-//    'user_type_in:'. UserTypeEnum::ADMIN,
+    'user_type_in:'. UserTypeEnum::ADMIN,
 ])], function(){
     Route::get('', [AdminActivityController::class, 'index']);
     Route::get('{id}', [AdminActivityController::class, 'show']);

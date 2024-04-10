@@ -107,7 +107,9 @@ class ActivityRequest extends FormRequest
             $rules['course_bundles'] = ValidationRuleHelper::arrayRules();
 
             $rules['course_bundles.*.price'] = ValidationRuleHelper::doubleRules();
-            $rules['course_bundles.*.discount'] = ValidationRuleHelper::percentageRules();
+            $rules['course_bundles.*.discount'] = ValidationRuleHelper::percentageRules([
+                'required' => 'sometimes',
+            ]);
             $rules['course_bundles.*.sessions_count'] = ValidationRuleHelper::integerRules();
             //            $rules['course_bundles.*.description'] = ValidationRuleHelper::longTextRules();
             //            $rules['course_bundles.*.name'] = ValidationRuleHelper::stringRules();

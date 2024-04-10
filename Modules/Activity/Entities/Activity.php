@@ -3,6 +3,7 @@
 namespace Modules\Activity\Entities;
 
 use App\Casts\CoordinateCast;
+use App\Casts\CourseBundleCast;
 use App\Traits\PaginationTrait;
 use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,17 +12,19 @@ use Modules\Activity\Entities\Builders\ActivityBuilder;
 use Modules\Activity\Http\Controllers\ThirdPartyActivityController;
 use Modules\Activity\Traits\ActivityRelations;
 use Modules\Markable\Entities\FavoriteModel;
-use Modules\Markable\Traits\Favorable;
 use Modules\Markable\Traits\Markable;
+use Modules\Review\Contracts\ReviewableContract;
+use Modules\Review\Traits\ReviewTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Activity extends Model implements HasMedia
+class Activity extends Model implements HasMedia, ReviewableContract
 {
     use HasFactory,
         PaginationTrait,
         Searchable,
         ActivityRelations,
+        ReviewTrait,
         Markable,
         InteractsWithMedia;
 
@@ -68,7 +71,7 @@ class Activity extends Model implements HasMedia
 
     protected $casts = [
         'address' => CoordinateCast::class,
-        'course_bundles' => 'array',
+        'course_bundles' => CourseBundleCast::class,
         'open_times' => 'array',
         'features' => 'array',
         'social_links' => 'array',

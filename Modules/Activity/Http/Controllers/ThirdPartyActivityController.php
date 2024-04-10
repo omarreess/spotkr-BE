@@ -44,6 +44,12 @@ class ThirdPartyActivityController extends Controller
         return $this->createdResponse(message: translate_success_message('activity', 'created'));
     }
 
+    public function update(ActivityRequest $request, $activity)
+    {
+        $this->thirdPartyActivityService->update($request->validated(), $activity);
+
+        return $this->okResponse(message: translate_success_message('activity', 'updated'));
+    }
     public function destroy($activity)
     {
         $this->thirdPartyActivityService->destroy($activity);
