@@ -44,8 +44,7 @@ class BaseActivityService
                 'include_in_adrenaline_rush',
                 'include_in_carousel',
                 'third_party_id',
-            ])
-            ->latest();
+            ]);
     }
 
     protected function baseShow(): Builder

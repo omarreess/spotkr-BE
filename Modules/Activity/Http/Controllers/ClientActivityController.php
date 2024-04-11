@@ -7,6 +7,7 @@ use App\Helpers\RequestHelper;
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Modules\Activity\Http\Requests\SimilarActivityRequest;
 use Modules\Activity\Services\ClientActivityService;
 use Modules\Activity\Transformers\ActivityResource;
 
@@ -34,5 +35,19 @@ class ClientActivityController extends Controller
         $activity = $this->clientActivityService->show($activity);
 
         return $this->resourceResponse(ActivityResource::make($activity));
+    }
+
+    public function similar($activity)
+    {
+        $similarActivities = $this->clientActivityService->similar($activity);
+
+        return $this->resourceResponse(ActivityResource::collection($similarActivities));
+    }
+
+    public function moreExperience($activity)
+    {
+        $moreExperience = $this->clientActivityService->moreExperience($activity);
+
+        return $this->resourceResponse(ActivityResource::collection($moreExperience));
     }
 }

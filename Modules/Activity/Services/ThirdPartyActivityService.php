@@ -36,6 +36,7 @@ class ThirdPartyActivityService extends BaseActivityService
     public function index()
     {
         return $this->baseIndex()
+            ->latest()
             ->forCurrentUser()
             ->paginatedCollection();
     }

@@ -22,7 +22,6 @@ use Modules\Review\Traits\ReviewRelations;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Model|\Eloquent $reviewable
  * @property-read \App\Models\User $user
- *
  * @method static \Modules\Review\Database\factories\ReviewFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Review formatResult()
  * @method static \Illuminate\Database\Eloquent\Builder|Review newModelQuery()
@@ -38,7 +37,8 @@ use Modules\Review\Traits\ReviewRelations;
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereReviewableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUserId($value)
- *
+ * @property string|null $description
+ * @method static \Illuminate\Database\Eloquent\Builder|Review whereDescription($value)
  * @mixin \Eloquent
  */
 class Review extends Model

@@ -21,7 +21,7 @@ use Modules\Review\Http\Controllers\ReviewController;
 */
 
 Route::group(['middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-    'user_type_in:'. UserTypeEnum::THIRD_PARTY,
+//    'user_type_in:'. UserTypeEnum::THIRD_PARTY,
 ])], function(){
     Route::post('third_parties/activities/{activity}', [ThirdPartyActivityController::class, 'update']);
     Route::apiResource('third_parties/activities', ThirdPartyActivityController::class)->except(['update']);
@@ -29,9 +29,14 @@ Route::group(['middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMid
 
 Route::group(['prefix' => 'clients/activities'], function(){
     Route::get('', [ClientActivityController::class, 'index']);
-    Route::get('{activity}', [ClientActivityController::class, 'show']);
-    Route::get('{activity}/reviews', [ReviewController::class, 'activity']);
-//    Route::get('{activity}/related')
+    Route::get('{activity}', [ClientActivityController::class, 'show'])
+        ->whereNumber('activity');
+
+    Route::get('{activity}/reviews', [ReviewController::class, 'activity'])
+        ->whereNumber('activity');
+
+    Route::get('{activity}/similar', [ClientActivityController::class, 'similar']);
+    Route::get('{activity}/more_experience', [ClientActivityController::class, 'moreExperience']);
 });
 
 Route::group(['prefix' => 'third_parties/{thirdParty}/activities', 'middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [

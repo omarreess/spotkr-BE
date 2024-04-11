@@ -18,7 +18,6 @@ use Illuminate\Notifications\DatabaseNotification;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $notifiable
- *
  * @method static \Illuminate\Notifications\DatabaseNotificationCollection<int, static> all($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Builder|NotificationModel formatResult()
  * @method static \Illuminate\Notifications\DatabaseNotificationCollection<int, static> get($columns = ['*'])
@@ -51,7 +50,8 @@ use Illuminate\Notifications\DatabaseNotification;
  * @method static \Illuminate\Notifications\DatabaseNotificationCollection<int, static> get($columns = ['*'])
  * @method static \Illuminate\Notifications\DatabaseNotificationCollection<int, static> all($columns = ['*'])
  * @method static \Illuminate\Notifications\DatabaseNotificationCollection<int, static> get($columns = ['*'])
- *
+ * @method static \Illuminate\Notifications\DatabaseNotificationCollection<int, static> all($columns = ['*'])
+ * @method static \Illuminate\Notifications\DatabaseNotificationCollection<int, static> get($columns = ['*'])
  * @mixin \Eloquent
  */
 class NotificationModel extends DatabaseNotification

@@ -2,7 +2,9 @@
 
 namespace Modules\Activity\Services;
 
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Activity\Entities\Activity;
+use Modules\Activity\Enums\ActivityTypeEnum;
 
 class ClientActivityService extends BaseActivityService
 {
@@ -10,8 +12,8 @@ class ClientActivityService extends BaseActivityService
     {
         return $this
             ->baseIndex()
-            ->whereApproved()
-            ->getFavorites()
+            ->inRandomOrder()
+            ->forClient()
             ->paginatedCollection();
     }
 
@@ -19,12 +21,29 @@ class ClientActivityService extends BaseActivityService
     {
         return $this
             ->baseShow()
-            ->whereApproved()
-            ->getFavorites()
+            ->forClient()
             ->with([
                 'thirdParty' => fn($query) => $query->select(['id', 'name', 'phone', 'email'])->with('avatar'),
                 'category:id,name',
             ])
             ->findOrFail($activity);
+    }
+
+    public function similar($activity)
+    {
+        $activity = $this->activityModel::query()
+            ->forClient()
+            ->findOrFail($activity, ['id', 'category_id', 'city_id']);
+
+        return $activity->similarActivities($this->baseIndex());
+    }
+
+    public function moreExperience($activity)
+    {
+        $activity = $this->activityModel::query()
+            ->forClient()
+            ->findOrFail($activity, ['id', 'category_id', 'city_id']);
+
+        return $activity->moreExperience($this->baseIndex());
     }
 }
