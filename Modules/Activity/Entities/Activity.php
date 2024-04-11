@@ -20,7 +20,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -198,16 +198,15 @@ class Activity extends Model implements HasMedia, ReviewableContract
 
     private function baseCities(Builder $baseBuilder, bool $sameCategory = true)
     {
-        $currentCity = $this->city;
         $currentCategory = $this->category;
 
         $sameCountry = $baseBuilder->clone()
-            ->whereHas('city', fn(Builder $builder) => $builder->where('country_id', $currentCity->country_id))
+            ->where('city_id', $this->city_id)
             ->similarCategories($sameCategory, $this->id, $currentCategory->parent_id)
             ->limit(4);
 
         $differenceCountry = $baseBuilder->clone()
-            ->whereHas('city', fn(Builder $builder) => $builder->where('country_id', '<>', $currentCity->country_id))
+            ->where('city_id', '<>', $this->city_id)
             ->similarCategories($sameCategory, $this->id, $currentCategory->parent_id)
 
             ->limit(2);
