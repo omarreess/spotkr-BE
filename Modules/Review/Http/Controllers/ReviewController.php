@@ -60,10 +60,12 @@ class ReviewController extends Controller
             $validData
         );
 
+        $model->recalculateRating();
+
         return $this->okResponse(message: translate_success_message('model', 'reviewed'));
     }
 
-    public function getModelByType(string $reviewableType, $modelId)
+    public function getModelByType(string $reviewableType, $modelId): ReviewableContract|null
     {
         return match($reviewableType) {
             ReviewTypeEnum::ACTIVITY => Activity::query()
