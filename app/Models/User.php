@@ -7,16 +7,19 @@ use App\Models\Builders\UserBuilder;
 use App\Traits\PaginationTrait;
 use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Auth\Traits\HasVerifyTokens;
 use Modules\Auth\Traits\UserRelations;
+use Modules\Payment\Entities\Card;
+use Modules\Payment\Traits\StripePaymentTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -79,6 +82,7 @@ class User extends Authenticatable implements HasMedia
         HasVerifyTokens,
         PaginationTrait,
         Searchable,
+        StripePaymentTrait,
         InteractsWithMedia;
 
     /**
@@ -127,5 +131,10 @@ class User extends Authenticatable implements HasMedia
     public function routeNotificationForFcm(): ?string
     {
         return $this->fcm_token;
+    }
+
+    public function creditCards(): HasMany
+    {
+        return $this->hasMany(Card::class);
     }
 }

@@ -8,5 +8,7 @@
     "Activity": true,
     "Markable": true,
     "FcmNotification": true,
-    "Review": true
+    "Review": true,
+    "Order": true,
+    "Payment": true
 }

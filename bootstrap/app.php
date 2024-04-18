@@ -30,13 +30,14 @@ use Illuminate\Support\Str;
 //use Modules\Auth\Http\Middleware\CheckUserType;
 //use Modules\Auth\Http\Middleware\MustBeVerified;
 use Modules\Auth\Http\Middleware\CheckUserType;
-use Spatie\Permission\Exceptions\UnauthorizedException;
-use Spatie\Permission\Middleware\PermissionMiddleware;
+use Modules\Payment\Helpers\StripeExceptionHelper;
+use Stripe\Exception\InvalidRequestException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use const Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Twilio\Exceptions\EnvironmentException;
+use Twilio\Exceptions\RestException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -175,35 +176,34 @@ return Application::configure(basePath: dirname(__DIR__))
 //            );
 //        });
 //
-//        $exceptions->renderable(function (RestException $e) use($httpResponse){
+        $exceptions->renderable(function (RestException $e) use($httpResponse){
 //
-//            $errorMessage = $e->getMessage();
+            $errorMessage = $e->getMessage();
+
+            if (Str::contains($errorMessage, '[HTTP 400] Unable to create record: Invalid parameter `To`')) {
+                $errorMessage = translate_word('phone_number_invalid');
+            } elseif (Str::match('/.* was not found$/', $errorMessage)) {
+                $errorMessage = 'code is incorrect';
+            }
+
+            return $httpResponse->errorResponse(
+                code: Response::HTTP_INTERNAL_SERVER_ERROR,
+                message: $errorMessage,
+            );
+        });
 //
-//            if (Str::contains($errorMessage, '[HTTP 400] Unable to create record: Invalid parameter `To`')) {
-//                $errorMessage = translate_word('phone_number_invalid');
-//            } elseif (Str::match('/.* was not found$/', $errorMessage)) {
-//                $errorMessage = 'code is incorrect';
-//            }
-//
-//            return $httpResponse->errorResponse(
-//                null,
-//                code: Response::HTTP_INTERNAL_SERVER_ERROR,
-//                message: $errorMessage,
-//            );
-//        });
-//
-//        $exceptions->renderable(function (EnvironmentException $e) use($httpResponse){
-//
-//            return $httpResponse->errorResponse(
-//                code: Response::HTTP_INTERNAL_SERVER_ERROR,
-//                message: $e->getMessage()
-//            );
-//        });
-//
-//        $exceptions->renderable(function (InvalidRequestException|InvalidArgumentException $e) {
-//            $errorObject = StripeExceptionHelper::getErrorObject($e);
-//
-//            return (new StripeExceptionHelper())->returnStripeError($errorObject);
-//        });
+        $exceptions->renderable(function (EnvironmentException $e) use($httpResponse){
+
+            return $httpResponse->errorResponse(
+                code: Response::HTTP_INTERNAL_SERVER_ERROR,
+                message: $e->getMessage()
+            );
+        });
+
+        $exceptions->renderable(function (InvalidRequestException|InvalidArgumentException $e) {
+            $errorObject = StripeExceptionHelper::getErrorObject($e);
+
+            return (new StripeExceptionHelper())->returnStripeError($errorObject);
+        });
     })
     ->create();

@@ -99,4 +99,6 @@ return [
     \Modules\FcmNotification\Helpers\NotificationTranslationHelper::ar(),
     ...\Modules\Markable\Helpers\FavoriteTranslationHelper::ar(),
     'reviewed' => 'تمت المراجعة بنجاح',
+    ...\Modules\Order\Helpers\OrderTranslationHelper::ar(),
+    ...\Modules\Payment\Helpers\PaymentTranslationHelper::ar(),
 ];

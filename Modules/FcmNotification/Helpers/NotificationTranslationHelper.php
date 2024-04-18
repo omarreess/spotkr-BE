@@ -13,6 +13,8 @@ class NotificationTranslationHelper
             'activity_status_change_body' => 'Activity :name status has been changed',
             'activity_created_title' => 'New activity has been created !',
             'activity_created_body' => 'Activity :name has been created, take an action now !',
+            'order_created_title' => 'New order created',
+            'order_created_body' => 'Pending order #:id',
         ];
     }
 
@@ -26,6 +28,8 @@ class NotificationTranslationHelper
             'activity_status_change_body' => 'تم تغيير حالة النشاط :name',
             'activity_created_title' => 'تم إنشاء نشاط جديد!',
             'activity_created_body' => 'تم إنشاء النشاط :name، قم باتخاذ إجراء الآن!',
+            'order_created_title' => 'تم إنشاء طلب جديد',
+            'order_created_body' => 'طلب معلق #:id',
         ];
     }
 
@@ -39,6 +43,8 @@ class NotificationTranslationHelper
             'activity_status_change_body' => "Le statut de l'activité :name a été modifié",
             'activity_created_title' => 'Une nouvelle activité a été créée !',
             'activity_created_body' => "L'activité :name a été créée, agissez maintenant !",
+            'order_created_title' => 'Nouvelle commande créée',
+            'order_created_body' => 'Commande en attente #:id',
         ];
     }
 }

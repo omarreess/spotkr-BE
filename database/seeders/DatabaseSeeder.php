@@ -10,6 +10,7 @@ use Modules\Auth\Database\Seeders\UserSeeder;
 use Modules\Category\Database\Seeders\CategoryDatabaseSeeder;
 use Modules\Country\Database\Seeders\CountryDatabaseSeeder;
 use Modules\Coupon\Database\Seeders\CouponDatabaseSeeder;
+use Modules\Order\Database\Seeders\OrderDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
             CategoryDatabaseSeeder::class,
             CouponDatabaseSeeder::class,
             ActivityDatabaseSeeder::class,
+            OrderDatabaseSeeder::class,
         ]);
     }
 }

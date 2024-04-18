@@ -3,6 +3,7 @@
 use App\Helpers\BaseTranslationHelper;
 use Modules\Auth\Helpers\AuthTranslationHelper;
 use Modules\Coupon\Helpers\CouponTranslationHelper;
+use Modules\Payment\Helpers\PaymentTranslationHelper;
 
 return [
     'created' => 'Created Successfully',
@@ -101,4 +102,6 @@ return [
     \Modules\FcmNotification\Helpers\NotificationTranslationHelper::en(),
     ...\Modules\Markable\Helpers\FavoriteTranslationHelper::en(),
     'reviewed' => 'Reviewed Successfully',
+    ...\Modules\Order\Helpers\OrderTranslationHelper::en(),
+    ...PaymentTranslationHelper::en(),
 ];
