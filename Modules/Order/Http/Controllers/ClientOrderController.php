@@ -2,11 +2,17 @@
 
 namespace Modules\Order\Http\Controllers;
 
+use App\Exceptions\ValidationErrorsException;
 use App\Traits\HttpResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Modules\Order\Http\Requests\OrderPaymentRequest;
 use Modules\Order\Http\Requests\OrderRequest;
 use Modules\Order\Services\ClientOrderService;
 use Modules\Order\Transformers\OrderResource;
+use Modules\Review\Http\Requests\ReviewRequest;
+use Modules\Review\Services\ReviewService;
+use Stripe\Exception\ApiErrorException;
 
 class ClientOrderController extends Controller
 {
@@ -43,5 +49,25 @@ class ClientOrderController extends Controller
     public function cancel($order)
     {
         $this->clientOrderService->cancel($order);
+
+        return $this->okResponse(message: translate_success_message('order', 'canceled'));
+    }
+
+    public function pay(OrderPaymentRequest $request, $order): JsonResponse
+    {
+        $this->clientOrderService->payOrder($request->credit_card_id, $order);
+
+        return $this->okResponse(message: translate_success_message('order', 'paid'));
+    }
+
+    public function review(ReviewRequest $request, $order, ReviewService $reviewService)
+    {
+        $this->clientOrderService->review(
+            $request->validated(),
+            $order,
+            $reviewService
+        );
+
+        return $this->okResponse(message: translate_success_message('order', 'reviewed'));
     }
 }

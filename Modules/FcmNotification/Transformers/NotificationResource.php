@@ -14,7 +14,7 @@ class NotificationResource extends JsonResource
 
         $title = $data['title'];
         $body = $data['body'];
-        $image = $data['image'];
+//        $image = $data['image'];
         $shouldTranslate = $data['should_translate'] ?? [];
         $translatedAttributes = $data['translated_attributes'] ?? [];
 
@@ -34,7 +34,7 @@ class NotificationResource extends JsonResource
                 shouldTranslate: $shouldTranslate,
                 translatedAttributes: $translatedAttributes
             ),
-            'image' => $image ? asset($image) : null,
+//            'image' => $image ? asset($image) : null,
             'created_at' => DateHelper::dateDiffForHumans($this->created_at),
             'seen' => ! is_null($this->read_at),
             'body' => FcmNotification::translatedKey(

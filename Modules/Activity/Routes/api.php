@@ -1,7 +1,6 @@
 <?php
 
 use App\Helpers\GeneralHelper;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Activity\Http\Controllers\AdminActivityController;
 use Modules\Activity\Http\Controllers\ClientActivityController;
@@ -21,7 +20,7 @@ use Modules\Review\Http\Controllers\ReviewController;
 */
 
 Route::group(['middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-//    'user_type_in:'. UserTypeEnum::THIRD_PARTY,
+    'user_type_in:'. UserTypeEnum::THIRD_PARTY,
 ])], function(){
     Route::post('third_parties/activities/{activity}', [ThirdPartyActivityController::class, 'update']);
     Route::apiResource('third_parties/activities', ThirdPartyActivityController::class)->except(['update']);
@@ -33,6 +32,9 @@ Route::group(['prefix' => 'clients/activities'], function(){
         ->whereNumber('activity');
 
     Route::get('{activity}/reviews', [ReviewController::class, 'activity'])
+        ->whereNumber('activity');
+
+    Route::get('{activity}/reviews/total', [ReviewController::class, 'activityTotal'])
         ->whereNumber('activity');
 
     Route::get('{activity}/similar', [ClientActivityController::class, 'similar']);

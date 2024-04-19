@@ -15,4 +15,9 @@ trait OrderStatusEloquent
     {
         return $this->where('status', OrderStatusEnum::COMPLETED);
     }
+
+    public function wherePaymentDone(): static
+    {
+        return $this->where('status', OrderStatusEnum::PAYMENT_DONE);
+    }
 }

@@ -5,14 +5,16 @@ namespace Modules\Order\Enums;
 enum OrderStatusEnum
 {
     const PENDING = 0;
-    const CANCELED = 1;
-    const COMPLETED = 2;
-    const REFUNDED = 3;
+    const PAYMENT_DONE = 1;
+    const CANCELED = 2;
+    const COMPLETED = 3;
+    const REFUNDED = 4;
 
-    public static function toArray()
+    public static function toArray(): array
     {
         return [
             self::PENDING,
+            self::PAYMENT_DONE,
             self::CANCELED,
             self::COMPLETED,
             self::REFUNDED,

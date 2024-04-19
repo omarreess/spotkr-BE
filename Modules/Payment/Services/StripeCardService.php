@@ -2,6 +2,7 @@
 
 namespace Modules\Payment\Services;
 
+use App\Exceptions\ValidationErrorsException;
 use DB;
 use Exception;
 use Illuminate\Support\Str;
@@ -154,5 +155,25 @@ class StripeCardService extends StripePaymentService
         }
 
         return true;
+    }
+
+    /**
+     * @throws ValidationErrorsException
+     */
+    public function creditCardExists($creditCardId)
+    {
+        $serverCreditCard = Card::query()
+            ->whereId($creditCardId)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if(! $serverCreditCard)
+        {
+            throw new ValidationErrorsException([
+                'credit_card_id' => translate_error_message('credit_card', 'not_exists')
+            ]);
+        }
+
+        return $serverCreditCard;
     }
 }

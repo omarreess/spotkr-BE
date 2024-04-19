@@ -81,13 +81,6 @@ return Application::configure(basePath: dirname(__DIR__))
             return $httpResponse->forbiddenResponse($e->getMessage());
         });
 
-//        $exceptions->renderable(
-//            function (
-//                DoesNotHaveStoreException|DoesNotHaveBranchException|DoesNotHaveDeliveryException $e
-//            ) use ($httpResponse){
-//                return $httpResponse->forbiddenResponse($e->getMessage());
-//        });
-
         // Map Exceptions
 //        $exceptions->renderable(function (MapException $exception) use($httpResponse){
 //            $message = json_decode($exception->getMessage())->error->message;

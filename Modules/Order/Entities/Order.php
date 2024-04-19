@@ -59,9 +59,4 @@ class Order extends Model
     {
         return new OrderBuilder($query);
     }
-
-    public function cancel()
-    {
-        
-    }
 }

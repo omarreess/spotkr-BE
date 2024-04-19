@@ -15,6 +15,10 @@ class NotificationTranslationHelper
             'activity_created_body' => 'Activity :name has been created, take an action now !',
             'order_created_title' => 'New order created',
             'order_created_body' => 'Pending order #:id',
+            'order_finished_title' => 'Order finished',
+            'order_finished_body' => 'Order #:id has been finished, tell us you experience !',
+            'order_canceled_title' => 'Order canceled',
+            'order_canceled_body' => 'Order #:id has been canceled',
         ];
     }
 
@@ -30,6 +34,10 @@ class NotificationTranslationHelper
             'activity_created_body' => 'تم إنشاء النشاط :name، قم باتخاذ إجراء الآن!',
             'order_created_title' => 'تم إنشاء طلب جديد',
             'order_created_body' => 'طلب معلق #:id',
+            'order_finished_title' => 'تم إنهاء الطلب',
+            'order_finished_body' => 'تم إنهاء الطلب #:id، أخبرنا عن تجربتك!',
+            'order_canceled_title' => 'تم إلغاء الطلب',
+            'order_canceled_body' => 'تم إلغاء الطلب #:id',
         ];
     }
 
@@ -45,6 +53,10 @@ class NotificationTranslationHelper
             'activity_created_body' => "L'activité :name a été créée, agissez maintenant !",
             'order_created_title' => 'Nouvelle commande créée',
             'order_created_body' => 'Commande en attente #:id',
+            'order_finished_title' => 'Commande terminée',
+            'order_finished_body' => 'La commande #:id a été terminée, dites-nous votre expérience !',
+            'order_canceled_title' => 'Commande annulée',
+            'order_canceled_body' => 'La commande #:id a été annulée',
         ];
     }
 }

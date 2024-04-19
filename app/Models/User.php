@@ -133,6 +133,11 @@ class User extends Authenticatable implements HasMedia
         return $this->fcm_token;
     }
 
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'notifications.users.'.$this->id;
+    }
+
     public function creditCards(): HasMany
     {
         return $this->hasMany(Card::class);

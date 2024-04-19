@@ -1,7 +1,6 @@
 <?php
 
 use App\Helpers\GeneralHelper;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Enums\UserTypeEnum;
 use Modules\Review\Http\Controllers\ReviewController;
@@ -17,7 +16,7 @@ use Modules\Review\Http\Controllers\ReviewController;
 |
 */
 
-Route::post('reviews', [ReviewController::class, 'store'])
-    ->middleware(array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-        'user_type_in:'. UserTypeEnum::CLIENT,
-    ]));
+//Route::post('reviews', [ReviewController::class, 'store'])
+//    ->middleware(array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
+//        'user_type_in:'. UserTypeEnum::CLIENT,
+//    ]));

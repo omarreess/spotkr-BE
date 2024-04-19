@@ -38,7 +38,6 @@ class OrderRequest extends FormRequest
             'sessions_count' => ValidationRuleHelper::integerRules([
                 'required' => $this->isCourse($activity) ? 'required' : 'exclude',
             ]),
-            'credit_card_id' => ValidationRuleHelper::foreignKeyRules(),
         ];
     }
 

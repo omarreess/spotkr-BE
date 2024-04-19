@@ -21,14 +21,18 @@ class ReviewController extends Controller
 
     public function activity($activity)
     {
-        $userType = auth()->user()?->type;
-
-        $activity = Activity::query()
-            ->whereApproved()
-            ->when($userType == UserTypeEnum::THIRD_PARTY, fn(Builder $builder) => $builder->where('third_party_id', auth()->id()))
-            ->findOrFail($activity, ['id']);
+        $activity = $this->getActivity($activity);
 
         return $this->getModelReviews($activity);
+    }
+
+    public function activityTotal($activity)
+    {
+        $activity = $this->getActivity($activity);
+
+        return $this->resourceResponse([
+            'count' => $activity->reviews()->count()
+        ]);
     }
 
     private function getModelReviews(ReviewableContract $model)
@@ -73,5 +77,15 @@ class ReviewController extends Controller
                 ->findOrFail($modelId, ['id']),
             default => null,
         };
+    }
+
+    private function getActivity($activityId)
+    {
+        $userType = auth()->user()?->type;
+
+        return Activity::query()
+            ->whereApproved()
+            ->when($userType == UserTypeEnum::THIRD_PARTY, fn(Builder $builder) => $builder->where('third_party_id', auth()->id()))
+            ->findOrFail($activityId, ['id']);
     }
 }
