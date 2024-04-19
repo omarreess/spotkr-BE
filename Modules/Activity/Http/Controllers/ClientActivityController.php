@@ -2,12 +2,10 @@
 
 namespace Modules\Activity\Http\Controllers;
 
-use App\Helpers\GeneralHelper;
 use App\Helpers\RequestHelper;
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Modules\Activity\Http\Requests\SimilarActivityRequest;
 use Modules\Activity\Services\ClientActivityService;
 use Modules\Activity\Transformers\ActivityResource;
 
@@ -49,5 +47,19 @@ class ClientActivityController extends Controller
         $moreExperience = $this->clientActivityService->moreExperience($activity);
 
         return $this->resourceResponse(ActivityResource::collection($moreExperience));
+    }
+
+    public function carousel()
+    {
+        $carousel = $this->clientActivityService->carousel();
+
+        return $this->paginatedResponse($carousel, ActivityResource::class);
+    }
+
+    public function adrenalineRush()
+    {
+        $adrenalineRush = $this->clientActivityService->adrenalineRush();
+
+        return $this->paginatedResponse($adrenalineRush, ActivityResource::class);
     }
 }

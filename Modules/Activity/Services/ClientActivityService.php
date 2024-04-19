@@ -46,4 +46,24 @@ class ClientActivityService extends BaseActivityService
 
         return $activity->moreExperience($this->baseIndex());
     }
+
+    public function carousel()
+    {
+        return $this->activityModel::query()
+            ->forClient()
+            ->with('mainImage')
+            ->select('id')
+            ->where('include_in_carousel', true)
+            ->paginatedCollection();
+    }
+
+    public function adrenalineRush()
+    {
+        return $this->activityModel::query()
+            ->forClient()
+            ->with('mainImage')
+            ->select('id')
+            ->where('include_in_adrenaline_rush', true)
+            ->paginatedCollection();
+    }
 }

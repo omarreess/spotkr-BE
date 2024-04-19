@@ -37,6 +37,8 @@ Route::group(['prefix' => 'clients/activities'], function(){
 
     Route::get('{activity}/similar', [ClientActivityController::class, 'similar']);
     Route::get('{activity}/more_experience', [ClientActivityController::class, 'moreExperience']);
+    Route::get('adrenaline_rush', [ClientActivityController::class, 'adrenalineRush']);
+    Route::get('carousel', [ClientActivityController::class, 'carousel']);
 });
 
 Route::group(['prefix' => 'third_parties/{thirdParty}/activities', 'middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [

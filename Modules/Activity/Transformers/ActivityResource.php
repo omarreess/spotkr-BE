@@ -17,8 +17,8 @@ class ActivityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'type' => $this->type,
+            'name' => $this->whenHas('name'),
+            'type' => $this->whenHas('type'),
             'favorite' => $this->whenNotNull(FavoriteHelper::resourceFavorite($this)),
             'status' => $this->whenHas('status'),
             'include_in_carousel' => $this->whenHas('include_in_carousel'),
