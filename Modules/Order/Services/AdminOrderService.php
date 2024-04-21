@@ -3,6 +3,7 @@
 namespace Modules\Order\Services;
 
 use Modules\FcmNotification\Enums\NotificationTypeEnum;
+use Modules\LeaderBoard\Services\AchievementService;
 use Modules\Order\Enums\OrderStatusEnum;
 
 class AdminOrderService extends BaseOrderService
@@ -38,7 +39,7 @@ class AdminOrderService extends BaseOrderService
             ->findOrFail($id);
     }
 
-    public function finish($order)
+    public function finish($order, AchievementService $achievementService)
     {
         $order = $this->orderModel::query()
             ->wherePaymentDone()
@@ -47,6 +48,8 @@ class AdminOrderService extends BaseOrderService
         $order
             ->forceFill(['status' => OrderStatusEnum::COMPLETED])
             ->save();
+
+        $achievementService->updateTotalAchievements($order->activity);
 
         ClientOrderService::notifyForOrder(
             $order->user,

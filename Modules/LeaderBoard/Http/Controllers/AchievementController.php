@@ -17,7 +17,14 @@ class AchievementController extends Controller
         $userAchievements = User::query()
             ->whereType(UserTypeEnum::CLIENT)
             ->where('status', true)
-            ->with(['achievements.icon', 'avatar'])
+            ->with([
+                'achievements' => function($builder){
+                    $builder
+                        ->oldest('required_points')
+                        ->with('icon');
+                },
+                'avatar'
+            ])
             ->select(['id', 'name', 'username', 'bio'])
             ->findOrFail($client);
 
