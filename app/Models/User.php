@@ -101,6 +101,7 @@ class User extends Authenticatable implements HasMedia
         'bio',
         'social_links',
         'social_provider',
+        'country_id',
     ];
 
     protected $hidden = [

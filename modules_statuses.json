@@ -10,5 +10,6 @@
     "FcmNotification": true,
     "Review": true,
     "Order": true,
-    "Payment": true
+    "Payment": true,
+    "LeaderBoard": true
 }

@@ -1,0 +1,11 @@
+{
+    "name": "LeaderBoard",
+    "alias": "leaderboard",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LeaderBoard\\Providers\\LeaderBoardServiceProvider"
+    ],
+    "files": []
+}

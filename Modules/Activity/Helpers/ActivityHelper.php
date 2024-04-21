@@ -8,7 +8,7 @@ use Modules\Activity\Enums\ActivityTypeEnum;
 
 class ActivityHelper
 {
-    public static function calculatePrice(Activity $activity, int $sessionsCount): float|int
+    public static function calculatePrice(Activity $activity, int|null $sessionsCount): float|int
     {
         $price = self::getPrice($activity, $sessionsCount);
 
@@ -22,7 +22,7 @@ class ActivityHelper
     /**
      * @throws ValidationErrorsException
      */
-    public static function getPrice(Activity $activity, int $sessionsCount)
+    public static function getPrice(Activity $activity, int|null $sessionsCount)
     {
         $price = $activity->price;
 

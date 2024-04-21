@@ -31,6 +31,9 @@ class BaseRegister extends FormRequest
                     'phone',
                 )
             ]),
+            'country_id' => ValidationRuleHelper::foreignKeyRules([
+                'required' => 'nullable',
+            ]),
             'username' => ValidationRuleHelper::usernameRules([
                 'unique' => ValidationRuleHelper::getUniqueColumn(
                     false,

@@ -23,7 +23,7 @@ class OrderRequest extends FormRequest
                 'required' => $this->isCourse($activity) ? 'exclude' : 'required',
             ]),
             'children_count' => ValidationRuleHelper::integerRules([
-                'required' => $this->isCourse($activity) ? 'exclude' : 'required',
+                'required' => $this->isCourse($activity) ? 'exclude' : 'nullable',
                 'min' => 'min:0',
             ]),
             'calendar_date' => ValidationRuleHelper::dateRules([

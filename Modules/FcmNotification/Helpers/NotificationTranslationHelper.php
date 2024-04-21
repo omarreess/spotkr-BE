@@ -19,6 +19,8 @@ class NotificationTranslationHelper
             'order_finished_body' => 'Order #:id has been finished, tell us you experience !',
             'order_canceled_title' => 'Order canceled',
             'order_canceled_body' => 'Order #:id has been canceled',
+            'user_won_title' => 'You won !',
+            'user_won_body' => 'You are a winner in this month enjoy !',
         ];
     }
 
@@ -38,6 +40,8 @@ class NotificationTranslationHelper
             'order_finished_body' => 'تم إنهاء الطلب #:id، أخبرنا عن تجربتك!',
             'order_canceled_title' => 'تم إلغاء الطلب',
             'order_canceled_body' => 'تم إلغاء الطلب #:id',
+            'user_won_title' => 'لقد فزت',
+            'user_won_body' => 'لقد ربحت استمتع الان !',
         ];
     }
 

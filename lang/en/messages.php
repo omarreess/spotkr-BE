@@ -3,6 +3,7 @@
 use App\Helpers\BaseTranslationHelper;
 use Modules\Auth\Helpers\AuthTranslationHelper;
 use Modules\Coupon\Helpers\CouponTranslationHelper;
+use Modules\LeaderBoard\Helpers\LeaderboardTranslationHelper;
 use Modules\Payment\Helpers\PaymentTranslationHelper;
 
 return [
@@ -105,4 +106,5 @@ return [
     ...\Modules\Markable\Helpers\FavoriteTranslationHelper::en(),
     ...\Modules\Order\Helpers\OrderTranslationHelper::en(),
     ...PaymentTranslationHelper::en(),
+    ...LeaderboardTranslationHelper::en()
 ];
