@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Category\Http\Controllers\ParentCategoryController;
 
@@ -15,8 +14,7 @@ use Modules\Category\Http\Controllers\ParentCategoryController;
 |
 */
 
-Route::group(['prefix' => 'categories'], function(){
+Route::group(['prefix' => 'categories'], function () {
     Route::get('', [ParentCategoryController::class, 'parentCategories']);
     Route::get('{parentCategory}/sub_categories', [ParentCategoryController::class, 'subCategories']);
 });
-

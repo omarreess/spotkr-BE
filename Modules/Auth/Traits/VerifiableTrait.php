@@ -5,7 +5,6 @@ namespace Modules\Auth\Traits;
 use App\Exceptions\ValidationErrorsException;
 use App\Models\User;
 use Modules\Auth\Entities\VerifyToken;
-use Modules\Auth\Enums\UserTypeEnum;
 use Modules\Auth\Enums\VerifyTokenTypeEnum;
 use Modules\Auth\Exceptions\VerificationCodeException;
 
@@ -25,7 +24,7 @@ trait VerifiableTrait
     {
         [$user, $code] = $this->prepareVerificationToken($handle);
 
-        if($type == VerifyTokenTypeEnum::VERIFICATION) {
+        if ($type == VerifyTokenTypeEnum::VERIFICATION) {
             $this->validateAlreadyVerified($user);
         }
 
@@ -36,6 +35,7 @@ trait VerifiableTrait
             $code,
         ];
     }
+
     /**
      * @throws ValidationErrorsException
      */
@@ -48,8 +48,7 @@ trait VerifiableTrait
                 ->where(User::getUniqueColumnName(), $handle)
                 ->first();
 
-        if(! $user)
-        {
+        if (! $user) {
             throw new ValidationErrorsException([
                 'user' => translate_error_message('user', 'not_exists'),
             ]);
@@ -58,7 +57,7 @@ trait VerifiableTrait
         return $user;
     }
 
-    protected function generateVerificationToken(string $handle, int $code = null, int $type = VerifyTokenTypeEnum::VERIFICATION): array
+    protected function generateVerificationToken(string $handle, ?int $code = null, int $type = VerifyTokenTypeEnum::VERIFICATION): array
     {
         return [
             'handle' => $handle,
@@ -81,7 +80,7 @@ trait VerifiableTrait
         return rand(1000, 9999);
     }
 
-    protected function generateEncryptedCode(int $code = null, string $algo = 'sha256'): string
+    protected function generateEncryptedCode(?int $code = null, string $algo = 'sha256'): string
     {
         $code = is_null($code) ? $this->generateRandomCode() : $code;
 
@@ -120,14 +119,13 @@ trait VerifiableTrait
     {
         [$user] = $this->prepareVerificationToken($handle);
 
-        if($type == VerifyTokenTypeEnum::VERIFICATION) {
+        if ($type == VerifyTokenTypeEnum::VERIFICATION) {
             $this->validateAlreadyVerified($user);
         }
 
         $verifyToken = $this->validateVerificationToken($user, $code, $type);
 
-        if($type == VerifyTokenTypeEnum::VERIFICATION)
-        {
+        if ($type == VerifyTokenTypeEnum::VERIFICATION) {
             $this->updateUserVerificationStatus($user);
         }
 
@@ -147,13 +145,11 @@ trait VerifiableTrait
             ->where('type', $type)
             ->first();
 
-        if(! $verifyToken)
-        {
+        if (! $verifyToken) {
             VerificationCodeException::createInstance()->invalidCode();
         }
 
-        if(now()->isAfter($verifyToken->expires_at))
-        {
+        if (now()->isAfter($verifyToken->expires_at)) {
             VerificationCodeException::createInstance()->expiredCode();
         }
 

@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Modules\Category\Entities\Category;
-use Modules\Category\Services\CategoryService;
 use Modules\Category\Transformers\CategoryResource;
 use Modules\Country\Entities\City;
 use Modules\Country\Entities\Country;
-use Modules\Country\Transformers\CityResource;
 
 class SelectMenuController extends Controller
 {

@@ -71,70 +71,73 @@ return Application::configure(basePath: dirname(__DIR__))
             //'permission' => PermissionMiddleware::class,
             'account_must_be_active' => AccountMustBeActive::class,
             'must_be_verified' => MustBeVerified::class,
-             'user_type_in' => CheckUserType::class,
+            'user_type_in' => CheckUserType::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $httpResponse = (new class { use \App\Traits\HttpResponse; });
+        $httpResponse = (new class
+        {
+            use \App\Traits\HttpResponse;
+        });
 
-        $exceptions->renderable(function(AccessDeniedHttpException $e) use ($httpResponse){
+        $exceptions->renderable(function (AccessDeniedHttpException $e) use ($httpResponse) {
             return $httpResponse->forbiddenResponse($e->getMessage());
         });
 
         // Map Exceptions
-//        $exceptions->renderable(function (MapException $exception) use($httpResponse){
-//            $message = json_decode($exception->getMessage())->error->message;
-//
-//            if (Str::contains($message, 'out of bounds')) {
-//                $message = translate_word('coordinates_out_of_bounds');
-//            }
-//
-//            return $httpResponse->errorResponse(
-//                code: Response::HTTP_BAD_REQUEST,
-//                message: $message,
-//            );
-//        });
+        //        $exceptions->renderable(function (MapException $exception) use($httpResponse){
+        //            $message = json_decode($exception->getMessage())->error->message;
+        //
+        //            if (Str::contains($message, 'out of bounds')) {
+        //                $message = translate_word('coordinates_out_of_bounds');
+        //            }
+        //
+        //            return $httpResponse->errorResponse(
+        //                code: Response::HTTP_BAD_REQUEST,
+        //                message: $message,
+        //            );
+        //        });
 
         // Wallet Exceptions
-//        $exceptions->renderable(function (UserHasNoWalletException $e) use($httpResponse){
-//            return $httpResponse->errorResponse(
-//                code: Response::HTTP_BAD_REQUEST,
-//                message: translate_word('user_has_no_wallet', [
-//                    'name' => $e->getUser()->name,
-//                ])
-//            );
-//        });
+        //        $exceptions->renderable(function (UserHasNoWalletException $e) use($httpResponse){
+        //            return $httpResponse->errorResponse(
+        //                code: Response::HTTP_BAD_REQUEST,
+        //                message: translate_word('user_has_no_wallet', [
+        //                    'name' => $e->getUser()->name,
+        //                ])
+        //            );
+        //        });
 
-//        $exceptions->renderable(function (DoesNotHaveEnoughBalanceException $e) use($httpResponse){
-//            return $httpResponse->errorResponse(
-//                code: Response::HTTP_BAD_REQUEST,
-//                message: translate_word('does_not_have_enough_balance', [
-//                    'amount' => $e->getAmount(),
-//                ])
-//            );
-//        });
-//
-//        $exceptions->renderable(function (CouldNotCalculateDistanceException $e) use($httpResponse){
-//            return $httpResponse->errorResponse(
-//                code: Response::HTTP_INTERNAL_SERVER_ERROR,
-//                message: translate_word('could_not_calculate_distance'),
-//            );
-//        });
+        //        $exceptions->renderable(function (DoesNotHaveEnoughBalanceException $e) use($httpResponse){
+        //            return $httpResponse->errorResponse(
+        //                code: Response::HTTP_BAD_REQUEST,
+        //                message: translate_word('does_not_have_enough_balance', [
+        //                    'amount' => $e->getAmount(),
+        //                ])
+        //            );
+        //        });
+        //
+        //        $exceptions->renderable(function (CouldNotCalculateDistanceException $e) use($httpResponse){
+        //            return $httpResponse->errorResponse(
+        //                code: Response::HTTP_INTERNAL_SERVER_ERROR,
+        //                message: translate_word('could_not_calculate_distance'),
+        //            );
+        //        });
         // Handle Unauthorized User
-        $exceptions->renderable(function (AuthenticationException $e, $req) use($httpResponse){
+        $exceptions->renderable(function (AuthenticationException $e, $req) use ($httpResponse) {
 
             return $httpResponse->unauthenticatedResponse('You are not authenticated');
         });
 
-        $exceptions->renderable(function (ValidationErrorsException $e) use($httpResponse){
+        $exceptions->renderable(function (ValidationErrorsException $e) use ($httpResponse) {
             return $httpResponse->validationErrorsResponse($e->getErrors());
         });
 
-        $exceptions->renderable(function (InternalServerErrorException $e) use($httpResponse){
+        $exceptions->renderable(function (InternalServerErrorException $e) use ($httpResponse) {
             return $httpResponse->errorResponse(message: $e->getMessage());
         });
 
-        $exceptions->renderable(function (NotFoundHttpException $e, $req) use($httpResponse){
+        $exceptions->renderable(function (NotFoundHttpException $e, $req) use ($httpResponse) {
             $msg = $e->getMessage();
 
             if (Str::contains($msg, 'No query', true)) {
@@ -144,7 +147,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return $httpResponse->errorResponse(null, Response::HTTP_NOT_FOUND, $msg);
         });
 
-        $exceptions->renderable(function (MethodNotAllowedHttpException $e, $request) use($httpResponse){
+        $exceptions->renderable(function (MethodNotAllowedHttpException $e, $request) use ($httpResponse) {
             return $httpResponse->errorResponse(
                 null,
                 Response::HTTP_METHOD_NOT_ALLOWED,
@@ -153,7 +156,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // Too Many Requests
-        $exceptions->renderable(function (ThrottleRequestsException $e, $request) use($httpResponse){
+        $exceptions->renderable(function (ThrottleRequestsException $e, $request) use ($httpResponse) {
             return $httpResponse->errorResponse(
                 null,
                 Response::HTTP_TOO_MANY_REQUESTS,
@@ -163,14 +166,14 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Don't Have Permissions
 
-//        $exceptions->renderable(function (UnauthorizedException $e, $request) use($httpResponse){
-//            return $httpResponse->forbiddenResponse(
-//                translate_word('forbidden')
-//            );
-//        });
-//
-        $exceptions->renderable(function (RestException $e) use($httpResponse){
-//
+        //        $exceptions->renderable(function (UnauthorizedException $e, $request) use($httpResponse){
+        //            return $httpResponse->forbiddenResponse(
+        //                translate_word('forbidden')
+        //            );
+        //        });
+        //
+        $exceptions->renderable(function (RestException $e) use ($httpResponse) {
+            //
             $errorMessage = $e->getMessage();
 
             if (Str::contains($errorMessage, '[HTTP 400] Unable to create record: Invalid parameter `To`')) {
@@ -184,8 +187,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 message: $errorMessage,
             );
         });
-//
-        $exceptions->renderable(function (EnvironmentException $e) use($httpResponse){
+        //
+        $exceptions->renderable(function (EnvironmentException $e) use ($httpResponse) {
 
             return $httpResponse->errorResponse(
                 code: Response::HTTP_INTERNAL_SERVER_ERROR,

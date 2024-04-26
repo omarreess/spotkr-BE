@@ -2,11 +2,11 @@
 
 namespace Modules\Auth\Http\Requests;
 
-use App\Models\User;
-use Illuminate\Foundation\Http\FormRequest;
 use App\Helpers\ValidationRuleHelper;
+use App\Models\User;
 use Elattar\Prepare\Traits\HttpResponse;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CompleteSignUpRequest extends FormRequest
 {
@@ -25,7 +25,7 @@ class CompleteSignUpRequest extends FormRequest
                     $usersTable,
                     null,
                     'username',
-                )
+                ),
             ]),
             'phone' => ValidationRuleHelper::phoneRules([
                 'required' => is_null($currentUser->phone) ? 'required' : 'exclude',
@@ -34,7 +34,7 @@ class CompleteSignUpRequest extends FormRequest
                     $usersTable,
                     null,
                     'phone',
-                )
+                ),
             ]),
         ];
     }

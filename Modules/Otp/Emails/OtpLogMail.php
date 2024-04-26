@@ -7,8 +7,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Modules\Auth\Emails\VerifyUserEmail;
 
 class OtpLogMail extends Mailable
 {
@@ -16,12 +14,10 @@ class OtpLogMail extends Mailable
 
     public string $value;
 
-
     public function __construct(string $value)
     {
         $this->value = $value;
     }
-
 
     public function envelope(): Envelope
     {

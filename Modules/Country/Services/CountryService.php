@@ -21,8 +21,7 @@ class CountryService
     {
         $country = $this->countryModel::query()->find($countryId);
 
-        if(! $country)
-        {
+        if (! $country) {
             throw new ValidationErrorsException([
                 $errorKey => translate_error_message('country', 'not_exists'),
             ]);

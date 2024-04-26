@@ -2,7 +2,6 @@
 
 namespace Modules\Order\Database\factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 use Modules\Activity\Entities\Activity;
@@ -53,4 +52,3 @@ class OrderFactory extends Factory
         ];
     }
 }
-

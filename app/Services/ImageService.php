@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Helpers\MediaHelper;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
@@ -13,6 +11,7 @@ use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 class ImageService
 {
     private HasMedia $model;
+
     private array $data;
 
     public function __construct($model, $data)
@@ -51,11 +50,6 @@ class ImageService
     }
 
     /**
-     * @param string $collectionName
-     * @param string $deleteMediasRequest
-     * @param string $otherMediasRequest
-     * @param string $otherMediasRelationName
-     * @return void
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
@@ -64,8 +58,7 @@ class ImageService
         string $deleteMediasRequest = '',
         string $otherMediasRequest = '',
         string $otherMediasRelationName = 'otherImages',
-    ): void
-    {
+    ): void {
         $this->deleteMultipleMediaViaIds($deleteMediasRequest, $otherMediasRelationName);
 
         $this->storeMultipleMedia($collectionName, $otherMediasRequest);
@@ -73,9 +66,7 @@ class ImageService
 
     /**
      * store many medias
-     * @param string $collectionName
-     * @param string $multipleMediaRequestKey
-     * @return void
+     *
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
@@ -88,11 +79,6 @@ class ImageService
         }
     }
 
-    /**
-     * @param string $deletedMediaRequestKey
-     * @param string $otherMediasRelationName
-     * @return void
-     */
     public function deleteMultipleMediaViaIds(string $deletedMediaRequestKey, string $otherMediasRelationName = 'otherImages'): void
     {
         if (isset($this->data[$deletedMediaRequestKey])) {
@@ -121,7 +107,7 @@ class ImageService
 
     public static function getMediaExtension(UploadedFile $uploadedFile): string
     {
-        $uploadedFileExtension = explode('/',$uploadedFile->getMimeType())[0];
+        $uploadedFileExtension = explode('/', $uploadedFile->getMimeType())[0];
 
         return match ($uploadedFileExtension) {
             'audio' => 'mp3',

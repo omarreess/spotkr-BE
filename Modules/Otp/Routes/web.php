@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('otp')->group(function() {
+Route::prefix('otp')->group(function () {
     Route::get('/', 'OtpController@index');
 });

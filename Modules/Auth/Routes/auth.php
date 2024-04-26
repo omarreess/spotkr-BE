@@ -25,9 +25,9 @@ use Modules\Auth\Http\Controllers\VerifyController;
 |
 */
 
-Route::group(['middleware' => 'guest'], function(){
+Route::group(['middleware' => 'guest'], function () {
     // Social Auth
-    Route::group(['prefix' => 'social/callback'], function(){
+    Route::group(['prefix' => 'social/callback'], function () {
         Route::post('client', [SocialAuthController::class, 'client']);
         Route::post('third_party', [SocialAuthController::class, 'thirdParty']);
     });
@@ -39,13 +39,13 @@ Route::group(['middleware' => 'guest'], function(){
     });
 
     // Register
-    Route::group(['prefix' => 'register'], function(){
+    Route::group(['prefix' => 'register'], function () {
         Route::post('client', [RegisterController::class, 'client']);
         Route::post('third_party', [RegisterController::class, 'thirdParty']);
     });
 
     // Verify User
-    if(VerifyConfigHelper::enabled()) {
+    if (VerifyConfigHelper::enabled()) {
         Route::group(['prefix' => 'verify_user'], function () {
             Route::post('', [VerifyController::class, 'verify'])->middleware(['throttle:10,1']);
             Route::post('resend', [VerifyController::class, 'send'])->middleware(['throttle:10,1']);
@@ -55,15 +55,15 @@ Route::group(['middleware' => 'guest'], function(){
         });
 
         // Password
-//        Route::group(['prefix' => 'password'], function () {
-//            Route::post('forgot_password', [PasswordResetController::class, 'forgotPassword'])->middleware(['throttle:10,1']);
-//            Route::post('reset_password', [PasswordResetController::class, 'resetPassword']);
-//        });
+        //        Route::group(['prefix' => 'password'], function () {
+        //            Route::post('forgot_password', [PasswordResetController::class, 'forgotPassword'])->middleware(['throttle:10,1']);
+        //            Route::post('reset_password', [PasswordResetController::class, 'resetPassword']);
+        //        });
     }
 
 });
 
-Route::group(['middleware' => GeneralHelper::getDefaultLoggedUserMiddlewares()], function(){
+Route::group(['middleware' => GeneralHelper::getDefaultLoggedUserMiddlewares()], function () {
     // Logout
     Route::post('logout', LogoutController::class);
 

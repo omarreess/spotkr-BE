@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Laravel\Socialite\Facades\Socialite;
 use Modules\Auth\Enums\AuthEnum;
 use Modules\Auth\Enums\SocialAuthEnum;
-use Modules\Auth\Enums\UserTypeEnum;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;

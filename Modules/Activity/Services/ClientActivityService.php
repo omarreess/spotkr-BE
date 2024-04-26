@@ -2,10 +2,6 @@
 
 namespace Modules\Activity\Services;
 
-use Illuminate\Database\Eloquent\Builder;
-use Modules\Activity\Entities\Activity;
-use Modules\Activity\Enums\ActivityTypeEnum;
-
 class ClientActivityService extends BaseActivityService
 {
     public function index()
@@ -23,7 +19,7 @@ class ClientActivityService extends BaseActivityService
             ->baseShow()
             ->forClient()
             ->with([
-                'thirdParty' => fn($query) => $query->select(['id', 'name', 'phone', 'email'])->with('avatar'),
+                'thirdParty' => fn ($query) => $query->select(['id', 'name', 'phone', 'email'])->with('avatar'),
                 'category:id,name',
             ])
             ->findOrFail($activity);

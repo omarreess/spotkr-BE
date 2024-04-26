@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Country\Http\Controllers\CityController;
-use Modules\Country\Http\Controllers\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +14,6 @@ use Modules\Country\Http\Controllers\CountryController;
 |
 */
 
-Route::group(['prefix' => 'cities'], function(){
+Route::group(['prefix' => 'cities'], function () {
     Route::get('popular', [CityController::class, 'popular']);
 });

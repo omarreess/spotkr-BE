@@ -5,8 +5,6 @@ namespace Modules\Markable\Entities;
 use Modules\Markable\Abstracts\Mark;
 
 /**
- * 
- *
  * @property int $id
  * @property string $user_id
  * @property string $markable_type
@@ -17,6 +15,7 @@ use Modules\Markable\Abstracts\Mark;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $markable
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Favorite newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Favorite newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Favorite query()
@@ -28,6 +27,7 @@ use Modules\Markable\Abstracts\Mark;
  * @method static \Illuminate\Database\Eloquent\Builder|Favorite whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Favorite whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Favorite whereValue($value)
+ *
  * @mixin \Eloquent
  */
 class Favorite extends Mark

@@ -6,6 +6,7 @@ use App\Http\Middleware\AccountMustBeActive;
 use App\Http\Middleware\AlwaysAcceptJson;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\MustBeVerified;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\SetDefaultLocale;
@@ -29,8 +30,6 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use App\Http\Middleware\MustBeVerified;
-use Modules\User\Http\Middleware\TypeHasPermission;
 use Spatie\Permission\Middlewares\PermissionMiddleware;
 
 class Kernel extends HttpKernel
@@ -43,7 +42,7 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
-            // \App\Http\Middleware\TrustHosts::class,
+        // \App\Http\Middleware\TrustHosts::class,
         TrustProxies::class,
         HandleCors::class,
         PreventRequestsDuringMaintenance::class,
@@ -70,8 +69,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-                // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            ThrottleRequests::class . ':api',
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            ThrottleRequests::class.':api',
             SubstituteBindings::class,
         ],
     ];

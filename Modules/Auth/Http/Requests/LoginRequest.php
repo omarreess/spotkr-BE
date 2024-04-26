@@ -21,17 +21,17 @@ class LoginRequest extends FormRequest
 
         return [
             AuthEnum::UNIQUE_COLUMN => [
-                'required'
+                'required',
             ],
             'password' => [
-                $fromMobile ? 'exclude': 'required',
+                $fromMobile ? 'exclude' : 'required',
             ],
             'one_time_password' => [
-                $fromMobile ? 'required': 'exclude',
+                $fromMobile ? 'required' : 'exclude',
             ],
             'fcm_token' => [
                 'nullable',
-                'string'
+                'string',
             ],
         ];
     }

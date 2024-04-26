@@ -25,16 +25,16 @@ class BaseLeaderBoardService
             ->with('avatar')
             ->where('type', UserTypeEnum::CLIENT)
             ->leaderboardFilters($filters)
-            ->withCount(['orders' => function($query) use ($period){
+            ->withCount(['orders' => function ($query) use ($period) {
                 $query
                     ->where('status', OrderStatusEnum::COMPLETED)
-                    ->whereHas('activity', function($query){
+                    ->whereHas('activity', function ($query) {
                         $query
                             ->where('type', ActivityTypeEnum::SPORT);
                     })
                     ->when(
                         $period,
-                        fn($builder) => $builder
+                        fn ($builder) => $builder
                             ->whereBetween(
                                 'created_at',
                                 $this->getPeriodDateRange($period)

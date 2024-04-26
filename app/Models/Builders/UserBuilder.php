@@ -32,7 +32,7 @@ class UserBuilder extends Builder
         $subCategory = $filters['sub_category_id'] ?? null;
 
         $this
-            ->when($country, fn($query) => $query->where('country_id', $country))
+            ->when($country, fn ($query) => $query->where('country_id', $country))
             ->filterOrderCategories([$subCategory, $subSubCategory]);
 
         return $this;
@@ -40,24 +40,24 @@ class UserBuilder extends Builder
 
     public function filterOrderCategories(array $filters)
     {
-        $this->when($filters[0] || $filters[1], function (Builder $builder) use ($filters){
-            $builder->whereHas('orders', function($builder) use ($filters){
-                $builder->whereHas('activity', function (Builder $builder) use ($filters){
+        $this->when($filters[0] || $filters[1], function (Builder $builder) use ($filters) {
+            $builder->whereHas('orders', function ($builder) use ($filters) {
+                $builder->whereHas('activity', function (Builder $builder) use ($filters) {
                     [$subCategory, $subSubCategory] = $filters;
                     $builder
                         ->where('type', ActivityTypeEnum::SPORT)
-                        ->when(! is_null($subSubCategory), function($query) use ($subCategory, $subSubCategory){
+                        ->when(! is_null($subSubCategory), function ($query) use ($subCategory, $subSubCategory) {
                             $query
                                 ->where('category_id', $subSubCategory)
                                 ->when(
                                     $subCategory,
-                                    fn($query2) => $query2->whereHas(
+                                    fn ($query2) => $query2->whereHas(
                                         'category',
-                                        fn($query3) => $query3
+                                        fn ($query3) => $query3
                                             ->where('id', $subSubCategory)
                                             ->whereHas(
                                                 'parentCategory',
-                                                fn($query4) => $query4->where('id', $subCategory)
+                                                fn ($query4) => $query4->where('id', $subCategory)
                                             )
                                     )
                                 );

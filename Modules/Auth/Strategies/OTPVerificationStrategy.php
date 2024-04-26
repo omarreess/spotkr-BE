@@ -4,7 +4,6 @@ namespace Modules\Auth\Strategies;
 
 use App\Exceptions\ValidationErrorsException;
 use Modules\Auth\Abstracts\AbstractVerifyUser;
-use Modules\Auth\Enums\VerifyTokenTypeEnum;
 use Modules\Auth\Traits\VerifiableTrait;
 use Modules\Otp\Contracts\OtpContract;
 

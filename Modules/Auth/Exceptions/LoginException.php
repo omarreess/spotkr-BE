@@ -4,7 +4,6 @@ namespace Modules\Auth\Exceptions;
 
 use App\Exceptions\ValidationErrorsException;
 use App\Traits\HttpResponse;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Modules\Auth\Abstracts\AbstractAuthException;
 use Symfony\Component\HttpFoundation\Response;

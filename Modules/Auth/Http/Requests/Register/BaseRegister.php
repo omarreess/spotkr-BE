@@ -29,7 +29,7 @@ class BaseRegister extends FormRequest
                     $usersTable,
                     null,
                     'phone',
-                )
+                ),
             ]),
             'country_id' => ValidationRuleHelper::foreignKeyRules([
                 'required' => 'nullable',
@@ -40,7 +40,7 @@ class BaseRegister extends FormRequest
                     $usersTable,
                     null,
                     'username',
-                )
+                ),
             ]),
             'avatar' => ValidationRuleHelper::storeOrUpdateImageRules($inUpdate, [
                 'required',

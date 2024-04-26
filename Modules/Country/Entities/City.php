@@ -5,17 +5,14 @@ namespace Modules\Country\Entities;
 use App\Helpers\MediaHelper;
 use App\Traits\PaginationTrait;
 use App\Traits\Searchable;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Country\Entities\Builders\CityBuilder;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property int $country_id
@@ -24,6 +21,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \Modules\Country\Entities\Country $country
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
+ *
  * @method static CityBuilder|City formatResult()
  * @method static CityBuilder|City newModelQuery()
  * @method static CityBuilder|City newQuery()
@@ -37,15 +35,16 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static CityBuilder|City whereId($value)
  * @method static CityBuilder|City whereName($value)
  * @method static CityBuilder|City whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class City extends Model implements HasMedia
 {
-    use HasFactory, PaginationTrait, Searchable, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, PaginationTrait, Searchable;
 
     protected $fillable = [
         'name',
-        'country_id'
+        'country_id',
     ];
 
     public function country(): BelongsTo

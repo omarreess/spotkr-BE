@@ -2,10 +2,10 @@
 
 namespace Modules\Activity\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Helpers\ValidationRuleHelper;
 use Elattar\Prepare\Traits\HttpResponse;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Modules\Activity\Enums\ActivityDayEnum;
 use Modules\Activity\Enums\ActivityTypeEnum;
 
@@ -41,10 +41,10 @@ class ActivityRequest extends FormRequest
                 'required' => 'sometimes',
             ]),
             'social_links' => ValidationRuleHelper::arrayRules([
-                'required' => 'nullable'
+                'required' => 'nullable',
             ]),
             'social_links.*' => ValidationRuleHelper::urlRules(false, [
-                'required' => 'sometimes'
+                'required' => 'sometimes',
             ]),
             'phone' => ValidationRuleHelper::phoneRules([
                 'required' => 'nullable',
@@ -58,7 +58,7 @@ class ActivityRequest extends FormRequest
             'other_images.*' => ValidationRuleHelper::storeOrUpdateImageRules(true),
             'deleted_images_ids' => ValidationRuleHelper::arrayRules(['required' => 'sometimes']),
             'deleted_images_ids.*' => ValidationRuleHelper::foreignKeyRules([
-                'required' => ! $inUpdate ? 'exclude': 'sometimes',
+                'required' => ! $inUpdate ? 'exclude' : 'sometimes',
             ]),
             'hold_at' => ValidationRuleHelper::dateTimeRules([
                 'required' => in_array($type, [ActivityTypeEnum::EVENT, ActivityTypeEnum::TRIP])
@@ -80,8 +80,7 @@ class ActivityRequest extends FormRequest
 
     private function addConditionalRules(array &$rules, string $type): void
     {
-        if(! $this->address)
-        {
+        if (! $this->address) {
             $rules['address'] = ValidationRuleHelper::arrayRules(['required' => 'exclude']);
         } else {
             $rules['address'] = ValidationRuleHelper::arrayRules();
@@ -90,8 +89,7 @@ class ActivityRequest extends FormRequest
             $rules['address.address'] = ValidationRuleHelper::addressRules();
         }
 
-        if(in_array($type, [ActivityTypeEnum::COURSE, ActivityTypeEnum::SPORT]))
-        {
+        if (in_array($type, [ActivityTypeEnum::COURSE, ActivityTypeEnum::SPORT])) {
             $rules['open_times'] = ValidationRuleHelper::arrayRules();
             $rules['open_times.*.day'] = ValidationRuleHelper::enumRules(ActivityDayEnum::toArray());
             $rules['open_times.*.from'] = ValidationRuleHelper::timeRules();
@@ -102,8 +100,7 @@ class ActivityRequest extends FormRequest
             $rules['open_times'] = ValidationRuleHelper::arrayRules(['required' => 'exclude']);
         }
 
-        if($type == ActivityTypeEnum::COURSE)
-        {
+        if ($type == ActivityTypeEnum::COURSE) {
             $rules['course_bundles'] = ValidationRuleHelper::arrayRules();
 
             $rules['course_bundles.*.price'] = ValidationRuleHelper::doubleRules();

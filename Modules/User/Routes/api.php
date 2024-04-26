@@ -1,7 +1,6 @@
 <?php
 
 use App\Helpers\GeneralHelper;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Enums\UserTypeEnum;
 use Modules\User\Http\Controllers\ThirdPartyController;
@@ -20,10 +19,10 @@ use Modules\User\Http\Controllers\ThirdPartyController;
 Route::group([
     'prefix' => 'users',
     'middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-        'user_type_in:'. UserTypeEnum::ADMIN,
-    ])], function(){
-    Route::group(['prefix' => 'third_parties'], function(){
-        Route::get('', [ThirdPartyController::class, 'thirdParties']);
-        Route::patch('{thirdParty}/change_status', [ThirdPartyController::class, 'changeStatus']);
+        'user_type_in:'.UserTypeEnum::ADMIN,
+    ])], function () {
+        Route::group(['prefix' => 'third_parties'], function () {
+            Route::get('', [ThirdPartyController::class, 'thirdParties']);
+            Route::patch('{thirdParty}/change_status', [ThirdPartyController::class, 'changeStatus']);
+        });
     });
-});

@@ -20,8 +20,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property float|null $price
@@ -56,6 +54,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Modules\Review\Entities\Review> $reviews
  * @property-read int|null $reviews_count
  * @property-read \App\Models\User $thirdParty
+ *
  * @method static ActivityBuilder|Activity forClient()
  * @method static ActivityBuilder|Activity forCurrentUser()
  * @method static ActivityBuilder|Activity formatResult()
@@ -101,25 +100,25 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static ActivityBuilder|Activity whereValidForClient()
  * @method static ActivityBuilder|Activity whereWebsite($value)
  * @method static ActivityBuilder|Activity withFavorites()
+ *
  * @mixin \Eloquent
  */
 class Activity extends Model implements HasMedia, ReviewableContract
 {
-    use HasFactory,
-        PaginationTrait,
-        Searchable,
-        ActivityRelations,
-        ReviewTrait,
+    use ActivityRelations,
+        HasFactory,
+        InteractsWithMedia,
         Markable,
-        InteractsWithMedia;
+        PaginationTrait,
+        ReviewTrait,
+        Searchable;
 
     protected static function boot(): void
     {
         parent::boot();
 
-        static::creating(function ($model){
-            if(! $model->third_party_id)
-            {
+        static::creating(function ($model) {
+            if (! $model->third_party_id) {
                 $model->third_party_id = auth()->id();
             }
         });

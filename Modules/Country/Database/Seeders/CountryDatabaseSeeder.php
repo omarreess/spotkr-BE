@@ -2,8 +2,8 @@
 
 namespace Modules\Country\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Modules\Country\Entities\City;
 use Modules\Country\Entities\Country;
@@ -20,12 +20,13 @@ class CountryDatabaseSeeder extends Seeder
         Model::unguard();
 
         $fileData = json_decode(File::get(base_path('storage/countries.min.json')), true);
-        $countries = array_map(fn($countryName) => ['name' => $countryName], array_keys($fileData));
+        $countries = array_map(fn ($countryName) => ['name' => $countryName], array_keys($fileData));
         $counter = 0;
-        $cities = collect(array_map(function($cities) use (&$counter){
+        $cities = collect(array_map(function ($cities) use (&$counter) {
             $counter++;
-            return array_map(fn($city) => ['name' => $city, 'country_id' => $counter], $cities);
-        }, array_values($fileData)))->reduce(fn($carry, $item) => array_merge($carry, $item), []);
+
+            return array_map(fn ($city) => ['name' => $city, 'country_id' => $counter], $cities);
+        }, array_values($fileData)))->reduce(fn ($carry, $item) => array_merge($carry, $item), []);
 
         Country::insert($countries);
 

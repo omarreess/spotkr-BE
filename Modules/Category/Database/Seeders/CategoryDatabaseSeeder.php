@@ -2,8 +2,8 @@
 
 namespace Modules\Category\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Modules\Category\Entities\Category;
 
 class CategoryDatabaseSeeder extends Seeder
@@ -65,14 +65,14 @@ class CategoryDatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach($subCategories as $key => $subCategory) {
+        foreach ($subCategories as $key => $subCategory) {
             $parent = Category::create(['name' => "$key sport", 'parent_id' => $sport->id]);
             foreach ($subCategory as $value) {
                 Category::create(['name' => "$value sport", 'parent_id' => $parent->id]);
             }
         }
 
-        foreach($subCategories as $key => $subCategory) {
+        foreach ($subCategories as $key => $subCategory) {
             $parent = Category::create(['name' => "$key sport course", 'parent_id' => $course->id]);
             foreach ($subCategory as $value) {
                 Category::create(['name' => "$value sport course", 'parent_id' => $parent->id]);

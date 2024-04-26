@@ -7,7 +7,9 @@ use App\Models\User;
 enum UserTypeEnum
 {
     const ADMIN = 'admin';
+
     const CLIENT = 'client';
+
     const THIRD_PARTY = 'third_party';
 
     public static function availableTypes(): array

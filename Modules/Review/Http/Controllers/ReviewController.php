@@ -3,10 +3,7 @@
 namespace Modules\Review\Http\Controllers;
 
 use App\Traits\HttpResponse;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Activity\Entities\Activity;
 use Modules\Auth\Enums\UserTypeEnum;
@@ -31,7 +28,7 @@ class ReviewController extends Controller
         $activity = $this->getActivity($activity);
 
         return $this->resourceResponse([
-            'count' => $activity->reviews()->count()
+            'count' => $activity->reviews()->count(),
         ]);
     }
 
@@ -41,9 +38,9 @@ class ReviewController extends Controller
             ->reviews()
             ->latest()
             ->with([
-                'user' => fn($builder) => $builder
+                'user' => fn ($builder) => $builder
                     ->select(['id', 'name'])
-                    ->with('avatar')
+                    ->with('avatar'),
             ])
             ->paginatedCollection(),
             ReviewResource::class,
@@ -69,9 +66,9 @@ class ReviewController extends Controller
         return $this->okResponse(message: translate_success_message('model', 'reviewed'));
     }
 
-    public function getModelByType(string $reviewableType, $modelId): ReviewableContract|null
+    public function getModelByType(string $reviewableType, $modelId): ?ReviewableContract
     {
-        return match($reviewableType) {
+        return match ($reviewableType) {
             ReviewTypeEnum::ACTIVITY => Activity::query()
                 ->whereApproved()
                 ->findOrFail($modelId, ['id']),
@@ -85,7 +82,7 @@ class ReviewController extends Controller
 
         return Activity::query()
             ->whereApproved()
-            ->when($userType == UserTypeEnum::THIRD_PARTY, fn(Builder $builder) => $builder->where('third_party_id', auth()->id()))
+            ->when($userType == UserTypeEnum::THIRD_PARTY, fn (Builder $builder) => $builder->where('third_party_id', auth()->id()))
             ->findOrFail($activityId, ['id']);
     }
 }

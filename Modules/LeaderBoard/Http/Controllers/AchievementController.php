@@ -3,8 +3,8 @@
 namespace Modules\LeaderBoard\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Routing\Controller;
 use App\Traits\HttpResponse;
+use Illuminate\Routing\Controller;
 use Modules\Auth\Enums\UserTypeEnum;
 use Modules\Auth\Transformers\UserResource;
 
@@ -18,12 +18,12 @@ class AchievementController extends Controller
             ->whereType(UserTypeEnum::CLIENT)
             ->where('status', true)
             ->with([
-                'achievements' => function($builder){
+                'achievements' => function ($builder) {
                     $builder
                         ->oldest('required_points')
                         ->with('icon');
                 },
-                'avatar'
+                'avatar',
             ])
             ->select(['id', 'name', 'username', 'bio'])
             ->findOrFail($client);

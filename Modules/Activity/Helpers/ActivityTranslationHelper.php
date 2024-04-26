@@ -17,6 +17,4 @@ class ActivityTranslationHelper
             'activity' => 'نشاط',
         ];
     }
-
-
 }

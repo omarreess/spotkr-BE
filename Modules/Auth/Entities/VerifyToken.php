@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
- *
  * @property int $id
  * @property string $handle
  * @property string $code
@@ -15,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $type 0 => verify, 1 => reset password
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|VerifyToken newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VerifyToken newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VerifyToken query()
@@ -25,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|VerifyToken whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerifyToken whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerifyToken whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class VerifyToken extends Model

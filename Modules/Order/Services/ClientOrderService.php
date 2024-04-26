@@ -2,7 +2,6 @@
 
 namespace Modules\Order\Services;
 
-
 use App\Exceptions\ValidationErrorsException;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +16,17 @@ use Modules\Order\Enums\OrderStatusEnum;
 use Modules\Payment\Services\StripeCardService;
 use Modules\Payment\Services\StripeChargeService;
 use Modules\Payment\Services\StripeCustomerService;
-use Modules\Review\Services\ReviewService;
 
 class ClientOrderService extends BaseOrderService
 {
     private Activity $activityModel;
+
     private CouponService $couponService;
+
     private StripeCardService $stripeCardService;
+
     private StripeChargeService $stripeChargeService;
+
     private StripeCustomerService $stripeCustomerService;
 
     public function __construct(
@@ -34,8 +36,7 @@ class ClientOrderService extends BaseOrderService
         StripeCardService $stripeCardService,
         StripeChargeService $stripeChargeService,
         StripeCustomerService $stripeCustomerService
-    )
-    {
+    ) {
         parent::__construct($orderModel);
         $this->activityModel = $activityModel;
         $this->couponService = $couponService;
@@ -56,13 +57,13 @@ class ClientOrderService extends BaseOrderService
     {
         return $this->orderModel::query()
             ->with([
-                'activity' => fn($builder) => $builder->select([
+                'activity' => fn ($builder) => $builder->select([
                     'id',
                     'name',
                     'description',
                     'type',
                 ])
-                    ->with('mainImage')
+                    ->with('mainImage'),
             ])
             ->where('user_id', auth()->id())
             ->findOrFail($id);
@@ -75,8 +76,7 @@ class ClientOrderService extends BaseOrderService
     {
         $activity = $this->activityModel::whereValidForClient()->findOrFail($data['activity_id']);
 
-        if(isset($data['coupon']))
-        {
+        if (isset($data['coupon'])) {
             $coupon = $this->couponService->getValidCouponByName($data['coupon']);
         }
 
@@ -93,7 +93,7 @@ class ClientOrderService extends BaseOrderService
 
     public function payOrder(...$args): void
     {
-        DB::transaction(function() use ($args){
+        DB::transaction(function () use ($args) {
             [$creditCardId, $order] = $args;
 
             $order = $this->getPendingOrder($order);
@@ -114,12 +114,11 @@ class ClientOrderService extends BaseOrderService
         });
     }
 
-    private function calculateOrderCost(Activity $activity, float|null $couponPercentage, int|null $sessionsCount): float|int
+    private function calculateOrderCost(Activity $activity, ?float $couponPercentage, ?int $sessionsCount): float|int
     {
         $orderCost = ActivityHelper::calculatePrice($activity, $sessionsCount);
 
-        if($couponPercentage)
-        {
+        if ($couponPercentage) {
             $orderCost = ($orderCost * $couponPercentage) / 100;
         }
 
@@ -135,8 +134,7 @@ class ClientOrderService extends BaseOrderService
         $oldStatus = $order->status;
         $order->forceFill(['status' => OrderStatusEnum::CANCELED])->save();
 
-        if($oldStatus == OrderStatusEnum::PAYMENT_DONE)
-        {
+        if ($oldStatus == OrderStatusEnum::PAYMENT_DONE) {
             $this->notifyCanceledOrder($order->id);
         }
     }
@@ -181,14 +179,14 @@ class ClientOrderService extends BaseOrderService
             translatedAttributes: [
                 $body => [
                     'id' => $orderId,
-                ]
+                ],
             ]
         ));
     }
 
     public function review(...$args)
     {
-        DB::transaction(function() use ($args){
+        DB::transaction(function () use ($args) {
             [$data, $order, $reviewService] = $args;
 
             $order = $this->orderModel::query()

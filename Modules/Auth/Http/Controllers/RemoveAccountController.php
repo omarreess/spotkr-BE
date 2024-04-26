@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\Auth\Actions\LogoutUser;
 use Modules\Auth\Enums\UserTypeEnum;
-use Modules\Auth\Http\Requests\DeleteUserRequest;
 
 class RemoveAccountController extends Controller
 {

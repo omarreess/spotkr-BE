@@ -2,10 +2,10 @@
 
 namespace Modules\Order\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Helpers\ValidationRuleHelper;
 use Elattar\Prepare\Traits\HttpResponse;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Modules\Activity\Entities\Activity;
 use Modules\Activity\Enums\ActivityTypeEnum;
 
@@ -27,7 +27,7 @@ class OrderRequest extends FormRequest
                 'min' => 'min:0',
             ]),
             'calendar_date' => ValidationRuleHelper::dateRules([
-//                'required' => $this->isCourse($activity) ? 'exclude' : 'required',
+                //                'required' => $this->isCourse($activity) ? 'exclude' : 'required',
             ]),
             'coupon' => ValidationRuleHelper::stringRules([
                 'required' => 'sometimes',

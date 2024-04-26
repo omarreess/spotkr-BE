@@ -22,14 +22,14 @@ class PasswordResetController extends Controller
 
     public function forgotPassword(PasswordResetRequest $request): JsonResponse
     {
-        DB::transaction(fn() => $this->verifiable->forgetPassword($request->handle));
+        DB::transaction(fn () => $this->verifiable->forgetPassword($request->handle));
 
         return $this->okResponse(message: translate_word('forgot_password_sent'));
     }
 
     public function resetPassword(PasswordResetRequest $request): JsonResponse
     {
-        DB::transaction(fn() => $this->verifiable->resetPassword(
+        DB::transaction(fn () => $this->verifiable->resetPassword(
             $request->handle,
             $request->code,
             $request->password

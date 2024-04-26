@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('leaderboard')->group(function() {
+Route::prefix('leaderboard')->group(function () {
     Route::get('/', 'LeaderBoardController@index');
 });

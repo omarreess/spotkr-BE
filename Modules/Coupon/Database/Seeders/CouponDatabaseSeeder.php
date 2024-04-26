@@ -2,8 +2,8 @@
 
 namespace Modules\Coupon\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Modules\Coupon\Entities\Coupon;
 
@@ -18,8 +18,7 @@ class CouponDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        for($i = 0; $i<100; $i++)
-        {
+        for ($i = 0; $i < 100; $i++) {
             $usersLimit = fake()->randomElement([null, rand(1, 100)]);
             Coupon::create([
                 'code' => Str::random(10),

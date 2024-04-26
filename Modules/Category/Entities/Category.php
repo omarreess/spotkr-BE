@@ -5,8 +5,8 @@ namespace Modules\Category\Entities;
 use App\Helpers\MediaHelper;
 use App\Traits\PaginationTrait;
 use App\Traits\Searchable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Category\Entities\Builders\CategoryBuilder;
@@ -14,8 +14,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -26,6 +24,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read Category|null $parentCategory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Category> $subCategories
  * @property-read int|null $sub_categories_count
+ *
  * @method static CategoryBuilder|Category formatResult()
  * @method static CategoryBuilder|Category newModelQuery()
  * @method static CategoryBuilder|Category newQuery()
@@ -42,15 +41,16 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static CategoryBuilder|Category whereParentId($value)
  * @method static CategoryBuilder|Category whereParentIsSport()
  * @method static CategoryBuilder|Category whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Category extends Model implements HasMedia
 {
-    use HasFactory, PaginationTrait, Searchable, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, PaginationTrait, Searchable;
 
     protected $fillable = [
         'name',
-        'parent_id'
+        'parent_id',
     ];
 
     public function parentCategory(): BelongsTo

@@ -20,13 +20,13 @@ use Modules\Review\Http\Controllers\ReviewController;
 */
 
 Route::group(['middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-    'user_type_in:'. UserTypeEnum::THIRD_PARTY,
-])], function(){
+    'user_type_in:'.UserTypeEnum::THIRD_PARTY,
+])], function () {
     Route::post('third_parties/activities/{activity}', [ThirdPartyActivityController::class, 'update']);
     Route::apiResource('third_parties/activities', ThirdPartyActivityController::class)->except(['update']);
 });
 
-Route::group(['prefix' => 'clients/activities'], function(){
+Route::group(['prefix' => 'clients/activities'], function () {
     Route::get('', [ClientActivityController::class, 'index']);
     Route::get('{activity}', [ClientActivityController::class, 'show'])
         ->whereNumber('activity');
@@ -44,8 +44,8 @@ Route::group(['prefix' => 'clients/activities'], function(){
 });
 
 Route::group(['prefix' => 'third_parties/{thirdParty}/activities', 'middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-    'user_type_in:'. UserTypeEnum::ADMIN,
-])], function(){
+    'user_type_in:'.UserTypeEnum::ADMIN,
+])], function () {
     Route::get('', [AdminActivityController::class, 'index']);
     Route::get('{id}', [AdminActivityController::class, 'show']);
     Route::patch('{id}', [AdminActivityController::class, 'changeStatus']);

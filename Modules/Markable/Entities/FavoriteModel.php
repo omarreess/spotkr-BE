@@ -25,6 +25,7 @@ use Modules\Markable\Helpers\FavoriteHelper;
  * @property Carbon|null $updated_at
  * @property-read Model|Eloquent $markable
  * @property-read User $user
+ *
  * @method static Builder|FavoriteModel newModelQuery()
  * @method static Builder|FavoriteModel newQuery()
  * @method static Builder|FavoriteModel query()
@@ -38,6 +39,7 @@ use Modules\Markable\Helpers\FavoriteHelper;
  * @method static Builder|FavoriteModel whereValue($value)
  * @method static Builder|FavoriteModel formatResult()
  * @method static Builder|FavoriteModel paginatedCollection(?int $paginationCount = null)
+ *
  * @mixin Eloquent
  */
 class FavoriteModel extends Mark

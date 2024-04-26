@@ -167,10 +167,9 @@ class StripeCardService extends StripePaymentService
             ->where('user_id', auth()->id())
             ->first();
 
-        if(! $serverCreditCard)
-        {
+        if (! $serverCreditCard) {
             throw new ValidationErrorsException([
-                'credit_card_id' => translate_error_message('credit_card', 'not_exists')
+                'credit_card_id' => translate_error_message('credit_card', 'not_exists'),
             ]);
         }
 

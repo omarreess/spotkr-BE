@@ -22,7 +22,7 @@ class CategoryService
     {
         $currentPage = PaginationHelper::getCurrentPage();
 
-        if($currentPage == 1) {
+        if ($currentPage == 1) {
             $parentCategories = $this->categoryModel::query()
                 ->whereParentCategory()
                 ->with([
@@ -76,22 +76,21 @@ class CategoryService
         $category = Category::query()
             ->when(
                 $eventOrTrip,
-                fn(Builder $builder)  => $builder->whereNull('parent_id')->whereName($activityType)
+                fn (Builder $builder) => $builder->whereNull('parent_id')->whereName($activityType)
             )
             ->when(
                 ! $eventOrTrip,
-                fn(Builder $builder) => $builder
+                fn (Builder $builder) => $builder
                     ->whereNotNull('parent_id')
                     ->whereHas(
                         'parentCategory',
-                        fn(Builder $query) => $query->whereHas('parentCategory', fn(Builder $innerQuery) => $innerQuery->whereName($activityType))
+                        fn (Builder $query) => $query->whereHas('parentCategory', fn (Builder $innerQuery) => $innerQuery->whereName($activityType))
                     )
                     ->whereId($categoryId)
             )
             ->first();
 
-        if(! $category)
-        {
+        if (! $category) {
             throw new ValidationErrorsException([
                 'category' => translate_error_message('category', 'not_exists'),
             ]);

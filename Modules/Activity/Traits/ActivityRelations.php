@@ -37,7 +37,7 @@ trait ActivityRelations
     public function basicCategory(): BelongsTo
     {
         return $this->category()->select(['id', 'parent_id'])->with([
-            'parentCategory' => fn($query) => $query->select(['id', 'parent_id']),
+            'parentCategory' => fn ($query) => $query->select(['id', 'parent_id']),
         ]);
     }
 

@@ -21,9 +21,9 @@ class AchievementResource extends JsonResource
             'required_points' => $this->whenHas('required_points'),
             'gained_points' => $this->whenHas('gained_points'),
             'icon' => ResourceHelper::getFirstMediaOriginalUrl($this, 'icon'),
-            'finished' => $this->when(! is_null($this->required_points) && ! is_null($this->gained_points), function(){
+            'finished' => $this->when(! is_null($this->required_points) && ! is_null($this->gained_points), function () {
                 return $this->gained_points >= $this->required_points;
-            })
+            }),
         ];
     }
 }

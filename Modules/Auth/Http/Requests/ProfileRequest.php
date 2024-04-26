@@ -48,7 +48,7 @@ class ProfileRequest extends FormRequest
                 'required' => 'nullable',
             ]),
             'social_links' => ValidationRuleHelper::arrayRules([
-                'required' => 'sometimes'
+                'required' => 'sometimes',
             ]),
             'social_links.*' => ValidationRuleHelper::urlRules(false, [
                 'required' => 'sometimes',

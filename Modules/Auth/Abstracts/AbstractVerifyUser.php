@@ -4,10 +4,7 @@ namespace Modules\Auth\Abstracts;
 
 use App\Exceptions\ValidationErrorsException;
 use App\Models\User;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Modules\Auth\Enums\AuthEnum;
-use Modules\Auth\Enums\VerifyTokenTypeEnum;
-use Modules\Auth\Traits\VerifiableTrait;
 
 abstract class AbstractVerifyUser
 {

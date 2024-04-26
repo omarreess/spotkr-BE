@@ -5,8 +5,6 @@ namespace Modules\Otp\Console;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Modules\Auth\Enums\AuthEnum;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class ClearUnverifiedUsers extends Command
 {

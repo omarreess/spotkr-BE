@@ -2,9 +2,8 @@
 
 namespace Modules\Country\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\Support\File;
+use Illuminate\Database\Seeder;
 
 class CountrySeeder extends Seeder
 {
@@ -16,7 +15,6 @@ class CountrySeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
 
         // $this->call("OthersTableSeeder");
     }

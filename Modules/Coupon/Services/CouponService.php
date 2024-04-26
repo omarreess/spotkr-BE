@@ -23,7 +23,8 @@ class CouponService
             ->paginatedCollection();
     }
 
-    public function show($coupon) {
+    public function show($coupon)
+    {
         return $this->couponModel::findOrFail($coupon);
     }
 
@@ -40,20 +41,19 @@ class CouponService
         $coupon = $this->couponModel::query()
             ->where('code', $code)
             ->where('status', true)
-            ->where(function(Builder $builder){
+            ->where(function (Builder $builder) {
                 $builder->whereNull('valid_till')
                     ->orWhere('valid_till', '>=', now());
             })
-            ->where(function(Builder $builder){
+            ->where(function (Builder $builder) {
                 $builder->whereNull('number_of_users')
                     ->orWhereColumn('used_by_users', '>', 'number_of_users');
             })
             ->first();
 
-        if(! $coupon)
-        {
+        if (! $coupon) {
             throw new ValidationErrorsException([
-                $errorKey => translate_error_message('coupon', 'not_exists')
+                $errorKey => translate_error_message('coupon', 'not_exists'),
             ]);
         }
 

@@ -2,7 +2,6 @@
 
 namespace Modules\Order\Http\Controllers;
 
-use App\Exceptions\ValidationErrorsException;
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -12,7 +11,6 @@ use Modules\Order\Services\ClientOrderService;
 use Modules\Order\Transformers\OrderResource;
 use Modules\Review\Http\Requests\ReviewRequest;
 use Modules\Review\Services\ReviewService;
-use Stripe\Exception\ApiErrorException;
 
 class ClientOrderController extends Controller
 {

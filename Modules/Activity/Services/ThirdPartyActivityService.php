@@ -19,14 +19,14 @@ use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 class ThirdPartyActivityService extends BaseActivityService
 {
     private CityService $cityService;
+
     private CategoryService $categoryService;
 
     public function __construct(
         Activity $activityModel,
         CityService $cityService,
         CategoryService $categoryService,
-    )
-    {
+    ) {
         parent::__construct($activityModel);
 
         $this->cityService = $cityService;
@@ -79,8 +79,7 @@ class ThirdPartyActivityService extends BaseActivityService
     {
         $inUpdate = ! is_null($id);
 
-        if($inUpdate)
-        {
+        if ($inUpdate) {
             $activity = $this->activityModel::query()
                 ->forCurrentUser()
                 ->findOrFail($id);
@@ -94,9 +93,8 @@ class ThirdPartyActivityService extends BaseActivityService
 
         $activity = $activity ?? null;
 
-        $activity = DB::transaction(function() use ($data, $category, $inUpdate, $activity){
-            if(! $inUpdate)
-            {
+        $activity = DB::transaction(function () use ($data, $category, $inUpdate, $activity) {
+            if (! $inUpdate) {
                 $activity = $this->activityModel::create($data + ['category_id' => $category->id]);
             } else {
                 $activity->update($data + ['category_id' => $category->id]);
@@ -107,13 +105,11 @@ class ThirdPartyActivityService extends BaseActivityService
             return $activity;
         });
 
-        if($inUpdate)
-        {
+        if ($inUpdate) {
             $this->activityUpdatedNotification($activity);
+        } else {
+            $this->activityCreatedNotification($activity);
         }
-         else {
-             $this->activityCreatedNotification($activity);
-         }
     }
 
     /**
@@ -124,8 +120,7 @@ class ThirdPartyActivityService extends BaseActivityService
     {
         $imageService = ImageService::createInstance($activity, $data);
 
-        if($inUpdate)
-        {
+        if ($inUpdate) {
             $imageService->updateOneMedia(
                 ThirdPartyActivityController::MAIN_IMAGE_COLLECTION_NAME,
                 'main_image',
@@ -156,7 +151,7 @@ class ThirdPartyActivityService extends BaseActivityService
 
     public function activityUpdatedNotification(Activity $activity)
     {
-        if($activity->wasChanged()) {
+        if ($activity->wasChanged()) {
             $this->sendActivityNotification($activity, true);
         }
     }
@@ -188,18 +183,15 @@ class ThirdPartyActivityService extends BaseActivityService
 
     private function removeUnRelatedFields(array &$data): void
     {
-        if(! isset($data['hold_on']))
-        {
+        if (! isset($data['hold_on'])) {
             $data['hold_on'] = null;
         }
 
-        if(! isset($data['open_times']))
-        {
+        if (! isset($data['open_times'])) {
             $data['open_times'] = null;
         }
 
-        if(! isset($data['course_bundles']))
-        {
+        if (! isset($data['course_bundles'])) {
             $data['course_bundles'] = null;
         }
     }

@@ -5,7 +5,6 @@ namespace Modules\Auth\Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use Modules\Auth\Enums\UserTypeEnum;
 use Spatie\Permission\Models\Role;
 
@@ -38,7 +37,7 @@ class UserSeeder extends Seeder
                     fake()->url(),
                     fake()->url(),
                     fake()->url(),
-                ]])
+                ]]),
             ]);
 
             $counter++;

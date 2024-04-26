@@ -3,9 +3,6 @@
 namespace Modules\LeaderBoard\Http\Controllers;
 
 use App\Traits\HttpResponse;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller;
 use Modules\Auth\Transformers\UserResource;
 use Modules\LeaderBoard\Http\Requests\LeaderboardFilterRequest;

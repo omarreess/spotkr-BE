@@ -5,7 +5,6 @@ namespace Modules\Auth\Services;
 use App\Exceptions\ValidationErrorsException;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Modules\Auth\Contracts\VerifyUser;
 use Modules\Auth\Enums\AuthEnum;
 use Modules\Auth\Enums\UserStatusEnum;
 use Modules\Auth\Enums\UserTypeEnum;
@@ -46,12 +45,11 @@ class LoginService
             ->with(AuthEnum::AVATAR_RELATIONSHIP_NAME)
             ->first();
 
-        if(! $user)
-        {
+        if (! $user) {
             return false;
         }
 
-        if($user->type == UserTypeEnum::ADMIN && $this->userNotFoundOrHaveWrongPassword($user, $validatedData['password'], $user->password ?? null)){
+        if ($user->type == UserTypeEnum::ADMIN && $this->userNotFoundOrHaveWrongPassword($user, $validatedData['password'], $user->password ?? null)) {
             return false;
         }
 
@@ -67,8 +65,7 @@ class LoginService
             return $errors;
         }
 
-        if($user->type != UserTypeEnum::ADMIN)
-        {
+        if ($user->type != UserTypeEnum::ADMIN) {
             $this->generalVerifyCode(
                 $user,
                 $validatedData['one_time_password'],

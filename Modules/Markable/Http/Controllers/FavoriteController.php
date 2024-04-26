@@ -8,7 +8,6 @@ use Modules\Activity\Entities\Activity;
 use Modules\Activity\Enums\ActivityStatusEnum;
 use Modules\Markable\Helpers\FavoriteHelper;
 use Modules\Markable\Http\Requests\FavoriteToggleRequest;
-use Modules\Product\Entities\BranchProduct;
 
 class FavoriteController extends Controller
 {

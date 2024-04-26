@@ -3,7 +3,6 @@
 namespace Modules\Auth\Traits;
 
 use Modules\Auth\Enums\AuthEnum;
-use Modules\Auth\Helpers\UserVerificationHelper;
 
 trait HasVerifyTokens
 {

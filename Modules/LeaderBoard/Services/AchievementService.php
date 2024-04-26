@@ -12,16 +12,14 @@ class AchievementService
     {
         $user = $user ?: auth()->user();
 
-        if($activity->type == ActivityTypeEnum::SPORT)
-        {
+        if ($activity->type == ActivityTypeEnum::SPORT) {
             $achievement = Achievement::query()
                 ->where('user_id', $user->id)
                 ->whereColumn('gained_points', '<', 'required_points')
                 ->oldest('required_points')
                 ->first();
 
-            if(! $achievement)
-            {
+            if (! $achievement) {
                 $achievement = $user->achievements()->latest('required_points')->first();
             }
 

@@ -14,6 +14,7 @@ class ThirdPartyActivityController extends Controller
     use HttpResponse;
 
     const MAIN_IMAGE_COLLECTION_NAME = 'activity_main_image';
+
     const OTHER_IMAGES_COLLECTION_NAME = 'activity_other_image';
 
     private ThirdPartyActivityService $thirdPartyActivityService;
@@ -50,6 +51,7 @@ class ThirdPartyActivityController extends Controller
 
         return $this->okResponse(message: translate_success_message('activity', 'updated'));
     }
+
     public function destroy($activity)
     {
         $this->thirdPartyActivityService->destroy($activity);

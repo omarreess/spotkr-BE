@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('coupon')->group(function() {
+Route::prefix('coupon')->group(function () {
     Route::get('/', 'CouponController@index');
 });

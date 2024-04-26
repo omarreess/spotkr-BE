@@ -7,9 +7,7 @@ use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\Auth\Contracts\VerifyUser;
 use Modules\Auth\Enums\AuthEnum;
-use Modules\Auth\Strategies\Verifiable;
 use Symfony\Component\HttpFoundation\Response;
 
 class MustBeVerified

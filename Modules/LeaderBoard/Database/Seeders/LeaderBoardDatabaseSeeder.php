@@ -2,8 +2,8 @@
 
 namespace Modules\LeaderBoard\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class LeaderBoardDatabaseSeeder extends Seeder
 {
@@ -12,7 +12,7 @@ class LeaderBoardDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call([
-            AchievementSeeder::class
+            AchievementSeeder::class,
         ]);
     }
 }

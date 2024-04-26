@@ -1,7 +1,6 @@
 <?php
 
 use App\Helpers\GeneralHelper;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Enums\UserTypeEnum;
 use Modules\Coupon\Http\Controllers\CouponController;
@@ -17,11 +16,9 @@ use Modules\Coupon\Http\Controllers\CouponController;
 |
 */
 
-
 Route::group(['middleware' => array_merge(GeneralHelper::getDefaultLoggedUserMiddlewares(), [
-    'user_type_in:'. UserTypeEnum::ADMIN
-])], function(){
+    'user_type_in:'.UserTypeEnum::ADMIN,
+])], function () {
     Route::patch('admin/coupons/{coupon}', [CouponController::class, 'changeStatus']);
     Route::apiResource('admin/coupons', CouponController::class)->except(['update']);
 });
-

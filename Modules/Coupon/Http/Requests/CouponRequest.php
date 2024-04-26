@@ -2,10 +2,10 @@
 
 namespace Modules\Coupon\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Helpers\ValidationRuleHelper;
 use Elattar\Prepare\Traits\HttpResponse;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Modules\Coupon\Entities\Coupon;
 
 class CouponRequest extends FormRequest
@@ -14,7 +14,7 @@ class CouponRequest extends FormRequest
 
     public function rules()
     {
-//        $inUpdate = in_array($this->method(), ['PUT', 'PATCH']);
+        //        $inUpdate = in_array($this->method(), ['PUT', 'PATCH']);
 
         return [
             'code' => ValidationRuleHelper::usernameRules([
@@ -23,7 +23,7 @@ class CouponRequest extends FormRequest
                     (new Coupon())->getTable(),
                     $this->route('coupon'),
                     'code',
-                )
+                ),
             ]),
             'number_of_users' => ValidationRuleHelper::integerRules([
                 'required' => 'nullable',

@@ -4,8 +4,8 @@ namespace Modules\Order\Entities;
 
 use App\Traits\PaginationTrait;
 use App\Traits\Searchable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Order\Database\factories\OrderFactory;
 use Modules\Order\Entities\Builders\OrderBuilder;
 use Modules\Order\Traits\OrderRelations;
@@ -42,9 +42,8 @@ class Order extends Model
     {
         parent::boot();
 
-        static::creating(function($model){
-            if(! $model->user_id)
-            {
+        static::creating(function ($model) {
+            if (! $model->user_id) {
                 $model->user_id = auth()->id();
             }
         });

@@ -2,8 +2,8 @@
 
 namespace Modules\LeaderBoard\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Modules\LeaderBoard\Entities\Achievement;
 
 class AchievementSeeder extends Seeder
@@ -26,7 +26,7 @@ class AchievementSeeder extends Seeder
             ['title' => 'Sports Prodigy', 'required_points' => 100, 'user_id' => 2],
             ['title' => 'Elite Athlete', 'required_points' => 140, 'user_id' => 2],
             ['title' => 'Sporting Legend', 'required_points' => 200, 'user_id' => 2],
-            ['title' => 'Champion of Sports', 'required_points' => 300, 'user_id' => 2]
+            ['title' => 'Champion of Sports', 'required_points' => 300, 'user_id' => 2],
         ];
 
         Achievement::insert($achievements);

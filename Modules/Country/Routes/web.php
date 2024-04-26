@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('country')->group(function() {
+Route::prefix('country')->group(function () {
     Route::get('/', 'CountryController@index');
 });

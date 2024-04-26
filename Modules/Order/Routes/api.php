@@ -1,7 +1,6 @@
 <?php
 
 use App\Helpers\GeneralHelper;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Enums\UserTypeEnum;
 use Modules\Order\Http\Controllers\AdminOrderController;
@@ -19,8 +18,8 @@ use Modules\Order\Http\Controllers\ThirdPartyOrderController;
 |
 */
 
-Route::group(['middleware' => GeneralHelper::getDefaultLoggedUserMiddlewares()], function(){
-    Route::group(['prefix' => 'clients/orders', 'middleware' => ['user_type_in:'. UserTypeEnum::CLIENT]], function(){
+Route::group(['middleware' => GeneralHelper::getDefaultLoggedUserMiddlewares()], function () {
+    Route::group(['prefix' => 'clients/orders', 'middleware' => ['user_type_in:'.UserTypeEnum::CLIENT]], function () {
         Route::get('', [ClientOrderController::class, 'index']);
         Route::get('{order}', [ClientOrderController::class, 'show']);
         Route::post('', [ClientOrderController::class, 'store']);
@@ -29,12 +28,12 @@ Route::group(['middleware' => GeneralHelper::getDefaultLoggedUserMiddlewares()],
         Route::post('{order}/review', [ClientOrderController::class, 'review']);
     });
 
-    Route::group(['prefix' => 'third_parties/orders', 'middleware' => ['user_type_in:'. UserTypeEnum::THIRD_PARTY]], function(){
-       Route::get('', [ThirdPartyOrderController::class, 'index']);
-       Route::get('{order}', [ThirdPartyOrderController::class, 'index']);
+    Route::group(['prefix' => 'third_parties/orders', 'middleware' => ['user_type_in:'.UserTypeEnum::THIRD_PARTY]], function () {
+        Route::get('', [ThirdPartyOrderController::class, 'index']);
+        Route::get('{order}', [ThirdPartyOrderController::class, 'index']);
     });
 
-    Route::group(['prefix' => 'admin/orders', 'middleware' => ['user_type_in:'. UserTypeEnum::ADMIN]], function(){
+    Route::group(['prefix' => 'admin/orders', 'middleware' => ['user_type_in:'.UserTypeEnum::ADMIN]], function () {
         Route::get('', [AdminOrderController::class, 'index']);
         Route::get('{order}', [AdminOrderController::class, 'show']);
         Route::post('{order}/refund', [AdminOrderController::class, 'refund']);

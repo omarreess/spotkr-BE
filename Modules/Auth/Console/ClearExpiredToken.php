@@ -4,8 +4,6 @@ namespace Modules\Auth\Console;
 
 use Illuminate\Console\Command;
 use Modules\Auth\Entities\VerifyToken;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class ClearExpiredToken extends Command
 {

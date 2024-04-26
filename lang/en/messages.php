@@ -106,5 +106,5 @@ return [
     ...\Modules\Markable\Helpers\FavoriteTranslationHelper::en(),
     ...\Modules\Order\Helpers\OrderTranslationHelper::en(),
     ...PaymentTranslationHelper::en(),
-    ...LeaderboardTranslationHelper::en()
+    ...LeaderboardTranslationHelper::en(),
 ];

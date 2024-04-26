@@ -11,7 +11,6 @@ use Modules\Auth\Http\Requests\CodeSendRequest;
 use Modules\Auth\Http\Requests\VerifyUserRequest;
 use Modules\Auth\Services\VerifyUserService;
 use Modules\Auth\Strategies\Verifiable;
-use Modules\Otp\Contracts\OtpContract;
 
 class VerifyController extends Controller
 {
@@ -28,7 +27,7 @@ class VerifyController extends Controller
     {
         $handle = $request->handle;
 
-        DB::transaction(fn() => $this->verifiable->sendCode($handle));
+        DB::transaction(fn () => $this->verifiable->sendCode($handle));
 
         return $this->okResponse(message: translate_word('resend_verify_code'));
     }
@@ -38,7 +37,7 @@ class VerifyController extends Controller
         $handle = $request->handle;
         $code = $request->code;
 
-        DB::transaction(fn() => $this->verifiable->verifyCode($handle, $code));
+        DB::transaction(fn () => $this->verifiable->verifyCode($handle, $code));
 
         return $this->okResponse(message: translate_word('verified'));
     }

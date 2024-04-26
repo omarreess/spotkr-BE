@@ -13,13 +13,13 @@ class AdminOrderService extends BaseOrderService
         return $this
             ->baseIndex()
             ->with([
-                'activity' => fn($builder) => $builder->select([
+                'activity' => fn ($builder) => $builder->select([
                     'id',
                     'name',
                     'description',
                     'type',
                 ])
-                    ->with('mainImage')
+                    ->with('mainImage'),
             ])
             ->paginatedCollection();
     }
@@ -28,13 +28,13 @@ class AdminOrderService extends BaseOrderService
     {
         return $this->orderModel::query()
             ->with([
-                'activity' => fn($builder) => $builder->select([
+                'activity' => fn ($builder) => $builder->select([
                     'id',
                     'name',
                     'description',
                     'type',
                 ])
-                    ->with('mainImage')
+                    ->with('mainImage'),
             ])
             ->findOrFail($id);
     }

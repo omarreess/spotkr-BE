@@ -3,7 +3,6 @@
 namespace Modules\Category\Http\Controllers;
 
 use App\Traits\HttpResponse;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\Category\Services\CategoryService;
 use Modules\Category\Transformers\CategoryResource;

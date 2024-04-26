@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'email' => $this->whenHas('email'),
             'username' => $this->whenHas('username'),
             'rolesIds' => $this->whenHas('rolesIds'),
-            'achievements_sum_gained_points' => $this->whenHas('achievements_sum_gained_points', fn() => (int)$this->achievements_sum_gained_points),
+            'achievements_sum_gained_points' => $this->whenHas('achievements_sum_gained_points', fn () => (int) $this->achievements_sum_gained_points),
             'avatar' => $this->whenNotNull(
                 ResourceHelper::getFirstMediaOriginalUrl(
                     $this,
@@ -30,11 +30,11 @@ class UserResource extends JsonResource
             ),
             'type' => $this->whenHas('type'),
             'gained_points' => $this->whenHas('orders_count'),
-            'is_winner' => $this->whenHas('last_winning_time', function(){
-               return Carbon::parse($this->last_winning_time)->isBetween(
-                   now()->firstOfMonth(),
-                   now()->lastOfMonth(),
-               );
+            'is_winner' => $this->whenHas('last_winning_time', function () {
+                return Carbon::parse($this->last_winning_time)->isBetween(
+                    now()->firstOfMonth(),
+                    now()->lastOfMonth(),
+                );
             }),
             'token' => $this->whenHas('token'),
             'bio' => $this->whenHas('bio'),

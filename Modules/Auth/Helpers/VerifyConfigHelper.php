@@ -2,13 +2,11 @@
 
 namespace Modules\Auth\Helpers;
 
-use Illuminate\Support\Facades\Log;
-
 class VerifyConfigHelper
 {
     public static function enabled()
     {
-        $value =  config('auth.verify.enabled', true);
+        $value = config('auth.verify.enabled', true);
 
         return in_array($value, ['true', '1', true], true);
     }

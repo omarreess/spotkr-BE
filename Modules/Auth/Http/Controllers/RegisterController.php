@@ -9,7 +9,6 @@ use Illuminate\Routing\Controller;
 use Modules\Auth\Actions\Register\ClientRegisterAction;
 use Modules\Auth\Actions\Register\ThirdPartyRegisterAction;
 use Modules\Auth\Http\Requests\Register\ClientRegisterRequest;
-use Modules\Auth\Http\Requests\Register\StoreRegisterRequest;
 use Modules\Auth\Strategies\Verifiable;
 use Throwable;
 

@@ -3,7 +3,6 @@
 namespace Modules\Auth\Services;
 
 use App\Exceptions\ValidationErrorsException;
-use Modules\Auth\Enums\UserStatusEnum;
 use Modules\Auth\Enums\VerifyTokenTypeEnum;
 use Modules\Auth\Traits\VerifiableTrait;
 use Modules\Otp\Contracts\OtpContract;
@@ -18,6 +17,7 @@ class VerifyUserService
     {
         $this->otpContract = $otpContract;
     }
+
     /**
      * @throws ValidationErrorsException
      */
@@ -30,7 +30,7 @@ class VerifyUserService
 
         $this->otpContract->send(
             $user->phone,
-            "Your one time password is $code and will expires after ". self::verificationTokenExpiryHours()
+            "Your one time password is $code and will expires after ".self::verificationTokenExpiryHours()
         );
     }
 }

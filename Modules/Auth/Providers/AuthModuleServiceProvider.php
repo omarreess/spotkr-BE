@@ -5,7 +5,6 @@ namespace Modules\Auth\Providers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Modules\Auth\Console\ClearExpiredToken;
-use Modules\Auth\Facades\Captcha;
 use Modules\Auth\Helpers\VerifyConfigHelper;
 use Modules\Auth\Strategies\Verifiable;
 use Modules\Otp\Console\ClearUnverifiedUsers;
@@ -33,7 +32,7 @@ class AuthModuleServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
-        if(VerifyConfigHelper::enabled()) {
+        if (VerifyConfigHelper::enabled()) {
 
             $this->registerVerifyUser();
         }
@@ -115,7 +114,7 @@ class AuthModuleServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             Verifiable::class,
-            fn() => $this->getVerificationStrategy(),
+            fn () => $this->getVerificationStrategy(),
         );
     }
 

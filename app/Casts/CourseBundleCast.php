@@ -16,12 +16,11 @@ class CourseBundleCast implements CastsAttributes
     {
         $value = json_decode($value, true);
 
-        if(! $value)
-        {
+        if (! $value) {
             return null;
         }
 
-        for($i = 0; $i<count($value); $i++){
+        for ($i = 0; $i < count($value); $i++) {
             $value[$i]['price'] = (float) $value[$i]['price'];
             $value[$i]['discount'] = isset($value[$i]['discount']) ? (float) $value[$i]['discount'] : null;
             $value[$i]['sessions_count'] = (int) $value[$i]['sessions_count'];

@@ -45,8 +45,7 @@ class CityService
             ->where('id', $id)
             ->first();
 
-        if(! $city)
-        {
+        if (! $city) {
             throw new ValidationErrorsException([
                 $errorKey => translate_error_message('city', 'not_exists'),
             ]);

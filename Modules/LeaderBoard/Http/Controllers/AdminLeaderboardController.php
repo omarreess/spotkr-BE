@@ -5,7 +5,6 @@ namespace Modules\LeaderBoard\Http\Controllers;
 use App\Models\User;
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Notifications\Notification;
 use Illuminate\Routing\Controller;
 use Modules\Auth\Enums\AuthEnum;
 use Modules\Auth\Enums\UserTypeEnum;
@@ -40,8 +39,7 @@ class AdminLeaderboardController extends Controller
             ->whereBetween('last_winning_time', [now()->startOfMonth(), now()->endOfMonth()])
             ->count();
 
-        if($totalWinningUsers < 3)
-        {
+        if ($totalWinningUsers < 3) {
             $user->forceFill(['last_winning_time' => now()])->save();
 
             $user->notify(new FcmNotification(

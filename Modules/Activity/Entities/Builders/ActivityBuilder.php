@@ -4,14 +4,13 @@ namespace Modules\Activity\Entities\Builders;
 
 use App\Traits\RateEloquentTrait;
 use Illuminate\Database\Eloquent\Builder;
-use Modules\Activity\Entities\Activity;
 use Modules\Activity\Enums\ActivityStatusEnum;
 use Modules\Activity\Traits\ActivityStatusEloquentTrait;
 use Modules\Markable\Traits\Favorable;
 
 class ActivityBuilder extends Builder
 {
-    use RateEloquentTrait, ActivityStatusEloquentTrait, Favorable;
+    use ActivityStatusEloquentTrait, Favorable, RateEloquentTrait;
 
     public function forCurrentUser(): static
     {
@@ -48,7 +47,7 @@ class ActivityBuilder extends Builder
             ->inRandomOrder()
             ->whereHas(
                 'category',
-                fn(Builder $builder) => $builder
+                fn (Builder $builder) => $builder
                     ->whereNotNull('parent_id')
                     ->where('parent_id', $sameCategory ? '=' : '<>', $categoryParentId)
             )

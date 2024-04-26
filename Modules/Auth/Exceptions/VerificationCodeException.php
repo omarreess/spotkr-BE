@@ -3,7 +3,7 @@
 namespace Modules\Auth\Exceptions;
 
 use App\Exceptions\ValidationErrorsException;
-use Modules\Auth\Abstracts\AbstractAuthException;;
+use Modules\Auth\Abstracts\AbstractAuthException;
 
 class VerificationCodeException extends AbstractAuthException
 {

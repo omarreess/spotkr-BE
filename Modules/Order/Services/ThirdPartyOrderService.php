@@ -10,14 +10,14 @@ class ThirdPartyOrderService extends BaseOrderService
     {
         return $this
             ->baseIndex()
-            ->whereHas('activity', fn(BelongsTo $builder) => $builder->where('user_id', auth()->id()))
+            ->whereHas('activity', fn (BelongsTo $builder) => $builder->where('user_id', auth()->id()))
             ->with([
-                'activity' => fn($builder) => $builder->select([
+                'activity' => fn ($builder) => $builder->select([
                     'id',
                     'name',
                     'type',
                 ])
-                    ->with('mainImage')
+                    ->with('mainImage'),
             ])
             ->select(['id', 'status', 'created_at']);
     }
@@ -25,14 +25,14 @@ class ThirdPartyOrderService extends BaseOrderService
     public function show($id)
     {
         $this->orderModel::query()
-            ->whereHas('activity', fn(BelongsTo $builder) => $builder->where('user_id', auth()->id()))
+            ->whereHas('activity', fn (BelongsTo $builder) => $builder->where('user_id', auth()->id()))
             ->with([
-                'activity' => fn($builder) => $builder->select([
+                'activity' => fn ($builder) => $builder->select([
                     'id',
                     'name',
                     'type',
                 ])
-                    ->with('mainImage')
+                    ->with('mainImage'),
             ])
             ->findOrFail($id);
     }

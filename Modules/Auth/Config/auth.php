@@ -11,6 +11,6 @@ return [
             'otp' => [
                 'class' => \Modules\Auth\Strategies\OTPVerificationStrategy::class,
             ],
-        ]
-    ]
+        ],
+    ],
 ];

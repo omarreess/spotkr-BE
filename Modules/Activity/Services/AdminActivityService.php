@@ -2,7 +2,6 @@
 
 namespace Modules\Activity\Services;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 use Modules\Activity\Enums\ActivityStatusEnum;
 use Modules\FcmNotification\Enums\NotificationTypeEnum;
@@ -41,8 +40,7 @@ class AdminActivityService extends BaseActivityService
                 : ActivityStatusEnum::REJECTED,
         ])->save();
 
-        if($activity->wasChanged())
-        {
+        if ($activity->wasChanged()) {
             Notification::send($activity->thirdParty, new FcmNotification(
                 'activity_status_change_title',
                 'activity_status_change_body',

@@ -2,10 +2,10 @@
 
 namespace Modules\Order\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Helpers\ValidationRuleHelper;
 use Elattar\Prepare\Traits\HttpResponse;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 
 class OrderPaymentRequest extends FormRequest
 {

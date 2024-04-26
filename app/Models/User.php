@@ -19,8 +19,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string $phone
@@ -43,6 +41,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static UserBuilder|User formatResult()
  * @method static UserBuilder|User newModelQuery()
@@ -71,19 +70,20 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static UserBuilder|User whereUpdatedAt($value)
  * @method static UserBuilder|User whereUsername($value)
  * @method static UserBuilder|User whereValidType(bool $inMobile)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements HasMedia
 {
-    use HasFactory,
-        Notifiable,
-        HasApiTokens,
-        UserRelations,
+    use HasApiTokens,
+        HasFactory,
         HasVerifyTokens,
+        InteractsWithMedia,
+        Notifiable,
         PaginationTrait,
         Searchable,
         StripePaymentTrait,
-        InteractsWithMedia;
+        UserRelations;
 
     /**
      * The attributes that are mass assignable.

@@ -2,8 +2,8 @@
 
 namespace Modules\Activity\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Modules\Activity\Entities\Activity;
 use Modules\Activity\Enums\ActivityStatusEnum;
 use Modules\Activity\Enums\ActivityTypeEnum;
@@ -18,7 +18,7 @@ class ActivityDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        for($i = 0; $i<100; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $fakeType = fake()->randomElement(ActivityTypeEnum::availableTypes());
             $holdOn = in_array($fakeType, [ActivityTypeEnum::EVENT, ActivityTypeEnum::TRIP])
                 ? fake()->dateTimeBetween('-1 month', '+1 month')
@@ -27,7 +27,7 @@ class ActivityDatabaseSeeder extends Seeder
                 ? [[
                     'from' => fake()->time('H:i'),
                     'to' => fake()->time('H:i'),
-                    'day' => fake()->randomElement(['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'])
+                    'day' => fake()->randomElement(['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday']),
                 ]]
                 : null;
 
@@ -45,7 +45,7 @@ class ActivityDatabaseSeeder extends Seeder
                         'latitude' => fake()->latitude(),
                         'longitude' => fake()->longitude(),
                         'address' => fake()->address(),
-                    ]
+                    ],
                 ]),
                 'phone' => fake()->phoneNumber(),
                 'fax' => fake()->phoneNumber(),
@@ -75,7 +75,7 @@ class ActivityDatabaseSeeder extends Seeder
                         fake()->url(),
                         fake()->url(),
                         fake()->url(),
-                    ]
+                    ],
                 ]),
                 'course_bundles' => $fakeType == ActivityTypeEnum::COURSE ? [[
                     'price' => fake()->randomFloat(2, 100, 500),

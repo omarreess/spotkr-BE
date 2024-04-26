@@ -3,8 +3,6 @@
 namespace App\Helpers;
 
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Validation\UnauthorizedException;
-use Mockery\Exception;
 
 class RequestHelper extends \Elattar\Prepare\Helpers\RequestHelper
 {
@@ -19,7 +17,8 @@ class RequestHelper extends \Elattar\Prepare\Helpers\RequestHelper
                 } else {
                     $thisValue->middleware(self::authMiddlewares());
                 }
-            } catch(AuthenticationException $e){}
+            } catch (AuthenticationException $e) {
+            }
 
         }
     }

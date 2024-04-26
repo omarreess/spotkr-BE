@@ -19,7 +19,7 @@ class BaseOrderService
         return $this->orderModel::query()
             ->when(
                 request()->input('status'),
-                fn(Builder $builder) => $builder->where('status', request()->input('status'))
+                fn (Builder $builder) => $builder->where('status', request()->input('status'))
             )
             ->latest();
     }
