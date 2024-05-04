@@ -13,6 +13,7 @@ use App\Http\Middleware\AccountMustBeActive;
 use App\Http\Middleware\AlwaysAcceptJson;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\MustBeVerified;
+use App\Http\Middleware\ProfileMustBeCompletedMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\SetDefaultLocale;
 use App\Http\Middleware\TrustProxies;
@@ -72,6 +73,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'account_must_be_active' => AccountMustBeActive::class,
             'must_be_verified' => MustBeVerified::class,
             'user_type_in' => CheckUserType::class,
+            'must_complete_profile' => ProfileMustBeCompletedMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

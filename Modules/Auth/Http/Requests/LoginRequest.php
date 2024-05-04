@@ -2,11 +2,13 @@
 
 namespace Modules\Auth\Http\Requests;
 
+use App\Helpers\ValidationRuleHelper;
 use App\Traits\HttpResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 use Modules\Auth\Enums\AuthEnum;
+use Modules\Auth\Enums\UserTypeEnum;
 
 class LoginRequest extends FormRequest
 {
@@ -33,6 +35,12 @@ class LoginRequest extends FormRequest
                 'nullable',
                 'string',
             ],
+            'type' => ValidationRuleHelper::enumRules([
+                UserTypeEnum::CLIENT,
+                UserTypeEnum::THIRD_PARTY,
+            ], [
+                'required' => $fromMobile ? 'required' : 'exclude'
+            ])
         ];
     }
 

@@ -24,14 +24,8 @@ class ProfileController extends Controller
     {
         $result = $profileService->handle($request->validated());
 
-        $msg = translate_success_message('profile', 'updated');
-
-        if (isset($result['verified'])) {
-            $msg .= ' and sms verification sent';
-        }
-
         if (is_bool($result) || isset($result['verified'])) {
-            return $this->okResponse(message: $msg);
+            return $this->okResponse(message: translate_success_message('profile', 'updated'));
         }
 
         return $this->validationErrorsResponse($result);

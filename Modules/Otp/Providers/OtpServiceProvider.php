@@ -3,6 +3,7 @@
 namespace Modules\Otp\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
 use Modules\Otp\Contracts\OtpContract;
 use Modules\Otp\Services\OtpLogService;
 use Modules\Otp\Services\TwilioService;
@@ -10,12 +11,12 @@ use Modules\Otp\Services\TwilioService;
 class OtpServiceProvider extends ServiceProvider
 {
     /**
-     * @var string
+     * @var string $moduleName
      */
     protected $moduleName = 'Otp';
 
     /**
-     * @var string
+     * @var string $moduleNameLower
      */
     protected $moduleNameLower = 'otp';
 
@@ -41,23 +42,26 @@ class OtpServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
 
+        $defaultProvider = config('services.otp.default');
         $this->app->singleton(
             OtpContract::class,
             OtpLogService::class,
-            //            TwilioService::class
+            TwilioService::class
         );
     }
 
     /**
      * Register config.
+     *
+     * @return void
      */
     protected function registerConfig(): void
     {
         $this->publishes([
-            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower.'.php'),
+            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), 'services',
+            module_path($this->moduleName, 'Config/config.php'),'services',
         );
     }
 
@@ -68,13 +72,13 @@ class OtpServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/modules/'.$this->moduleNameLower);
+        $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
 
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
         $this->publishes([
-            $sourcePath => $viewPath,
-        ], ['views', $this->moduleNameLower.'-module-views']);
+            $sourcePath => $viewPath
+        ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
     }
@@ -86,7 +90,7 @@ class OtpServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/modules/'.$this->moduleNameLower);
+        $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
@@ -111,11 +115,10 @@ class OtpServiceProvider extends ServiceProvider
     {
         $paths = [];
         foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path.'/modules/'.$this->moduleNameLower)) {
-                $paths[] = $path.'/modules/'.$this->moduleNameLower;
+            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
+                $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
-
         return $paths;
     }
 }

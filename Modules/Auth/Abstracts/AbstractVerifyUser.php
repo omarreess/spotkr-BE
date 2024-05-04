@@ -25,7 +25,7 @@ abstract class AbstractVerifyUser
         }
     }
 
-    public function updateUserVerificationStatus(User $user, bool $enableUser = true): void
+    public static function updateUserVerificationStatus(User $user, bool $enableUser = true): void
     {
         $user->forceFill([
             AuthEnum::VERIFIED_AT => now(),

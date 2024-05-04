@@ -10,6 +10,7 @@ use Modules\Auth\Actions\Register\ClientRegisterAction;
 use Modules\Auth\Actions\Register\ThirdPartyRegisterAction;
 use Modules\Auth\Http\Requests\Register\ClientRegisterRequest;
 use Modules\Auth\Strategies\Verifiable;
+use Modules\Country\Services\CountryService;
 use Throwable;
 
 class RegisterController extends Controller
@@ -17,10 +18,12 @@ class RegisterController extends Controller
     use HttpResponse;
 
     private Verifiable $verifiable;
+    private CountryService $countryService;
 
-    public function __construct(Verifiable $verifiable)
+    public function __construct(Verifiable $verifiable, CountryService $countryService)
     {
         $this->verifiable = $verifiable;
+        $this->countryService = $countryService;
     }
 
     /**
@@ -29,14 +32,14 @@ class RegisterController extends Controller
      */
     public function client(ClientRegisterRequest $request, ClientRegisterAction $registerService): JsonResponse
     {
-        $registerService->handle($request->validated(), $this->verifiable);
+        $registerService->handle($request->validated(), $this->verifiable, $this->countryService);
 
         return $this->baseReturn();
     }
 
     public function thirdParty(ClientRegisterRequest $request, ThirdPartyRegisterAction $thirdRegisterAction): JsonResponse
     {
-        $thirdRegisterAction->handle($request->validated(), $this->verifiable);
+        $thirdRegisterAction->handle($request->validated(), $this->verifiable, $this->countryService);
 
         return $this->baseReturn();
     }
