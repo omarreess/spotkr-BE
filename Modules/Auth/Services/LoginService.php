@@ -55,7 +55,7 @@ class LoginService
                     'type' => $validatedData['type'],
                 ]);
 
-                $user = User::where('phone', $validatedData['phone'])->first();
+                $user = User::where('phone', $validatedData['phone'])->with('avatar')->first();
             }
 
             $this->generalVerifyCode(
