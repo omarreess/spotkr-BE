@@ -4,6 +4,7 @@ namespace Modules\Auth\Traits;
 
 use App\Exceptions\ValidationErrorsException;
 use App\Models\User;
+use Modules\Auth\Abstracts\AbstractVerifyUser;
 use Modules\Auth\Entities\VerifyToken;
 use Modules\Auth\Enums\VerifyTokenTypeEnum;
 use Modules\Auth\Exceptions\VerificationCodeException;
@@ -125,8 +126,8 @@ trait VerifiableTrait
 
         $verifyToken = $this->validateVerificationToken($user, $code, $type);
 
-        if ($type == VerifyTokenTypeEnum::VERIFICATION) {
-            $this->updateUserVerificationStatus($user);
+        if ($type != VerifyTokenTypeEnum::PASSWORD_RESET) {
+            AbstractVerifyUser::updateUserVerificationStatus($user);
         }
 
         $verifyToken->delete();

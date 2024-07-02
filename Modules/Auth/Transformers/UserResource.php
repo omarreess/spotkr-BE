@@ -31,10 +31,10 @@ class UserResource extends JsonResource
             'type' => $this->whenHas('type'),
             'gained_points' => $this->whenHas('orders_count'),
             'is_winner' => $this->whenHas('last_winning_time', function () {
-                return Carbon::parse($this->last_winning_time)->isBetween(
-                    now()->firstOfMonth(),
-                    now()->lastOfMonth(),
-                );
+                return !is_null($this->last_winning_time) && Carbon::parse($this->last_winning_time)->isBetween(
+                        now()->firstOfMonth(),
+                        now()->lastOfMonth(),
+                    );
             }),
             'token' => $this->whenHas('token'),
             'bio' => $this->whenHas('bio'),

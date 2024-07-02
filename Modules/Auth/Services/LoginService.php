@@ -45,32 +45,44 @@ class LoginService
             ->with(AuthEnum::AVATAR_RELATIONSHIP_NAME)
             ->first();
 
-        if (! $user) {
-            return false;
-        }
+        if($isMobile)
+        {
+            if(! $user)
+            {
+                User::create([
+                    'name' => $validatedData['type'],
+                    'phone' => $validatedData['phone'],
+                    'type' => $validatedData['type'],
+                ]);
 
-        if ($user->type == UserTypeEnum::ADMIN && $this->userNotFoundOrHaveWrongPassword($user, $validatedData['password'], $user->password ?? null)) {
-            return false;
-        }
+                $user = User::where('phone', $validatedData['phone'])->with('avatar')->first();
+            }
 
-        if (! $this->isVerified($user)) {
-            $errors['not_verified'] = true;
-
-            return $errors;
-        }
-
-        if (UserStatusEnum::isInActive($user)) {
-            $errors['frozen'] = 1;
-
-            return $errors;
-        }
-
-        if ($user->type != UserTypeEnum::ADMIN) {
             $this->generalVerifyCode(
                 $user,
                 $validatedData['one_time_password'],
                 VerifyTokenTypeEnum::ONE_TIME_PASSWORD,
             );
+        } else {
+            if (! $user) {
+                return false;
+            }
+
+            if ($user->type == UserTypeEnum::ADMIN && $this->userNotFoundOrHaveWrongPassword($user, $validatedData['password'], $user->password ?? null)) {
+                return false;
+            }
+
+            if (! $this->isVerified($user)) {
+                $errors['not_verified'] = true;
+
+                return $errors;
+            }
+
+            if (UserStatusEnum::isInActive($user)) {
+                $errors['frozen'] = 1;
+
+                return $errors;
+            }
         }
 
         auth()->login($user);

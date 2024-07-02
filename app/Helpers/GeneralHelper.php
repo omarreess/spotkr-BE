@@ -20,4 +20,15 @@ class GeneralHelper extends \Elattar\Prepare\Helpers\GeneralHelper
 
         return $middlewares;
     }
+
+    public static function mobileMiddlewares(bool $mustCompleteProfile = true, array $additionalMiddlewares = [])
+    {
+        return array_merge(
+            self::getDefaultLoggedUserMiddlewares(),
+            array_filter([
+                $mustCompleteProfile ? 'must_complete_profile' : null
+            ]),
+            $additionalMiddlewares
+        );
+    }
 }

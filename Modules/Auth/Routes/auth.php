@@ -39,16 +39,16 @@ Route::group(['middleware' => 'guest'], function () {
     });
 
     // Register
-    Route::group(['prefix' => 'register'], function () {
-        Route::post('client', [RegisterController::class, 'client']);
-        Route::post('third_party', [RegisterController::class, 'thirdParty']);
-    });
+//    Route::group(['prefix' => 'register'], function () {
+//        Route::post('client', [RegisterController::class, 'client']);
+//        Route::post('third_party', [RegisterController::class, 'thirdParty']);
+//    });
 
     // Verify User
     if (VerifyConfigHelper::enabled()) {
         Route::group(['prefix' => 'verify_user'], function () {
-            Route::post('', [VerifyController::class, 'verify'])->middleware(['throttle:10,1']);
-            Route::post('resend', [VerifyController::class, 'send'])->middleware(['throttle:10,1']);
+//            Route::post('', [VerifyController::class, 'verify'])->middleware(['throttle:10,1']);
+//            Route::post('resend', [VerifyController::class, 'send'])->middleware(['throttle:10,1']);
 
             // one time password
             Route::post('one_time_password', [VerifyController::class, 'sendOneTimePassword'])->middleware(['throttle:3,1']);
@@ -63,7 +63,7 @@ Route::group(['middleware' => 'guest'], function () {
 
 });
 
-Route::group(['middleware' => GeneralHelper::getDefaultLoggedUserMiddlewares()], function () {
+Route::group(['middleware' => GeneralHelper::mobileMiddlewares()], function () {
     // Logout
     Route::post('logout', LogoutController::class);
 
@@ -78,5 +78,7 @@ Route::group(['middleware' => GeneralHelper::getDefaultLoggedUserMiddlewares()],
 
     // Remove User Account
     Route::post('remove_account', RemoveAccountController::class);
-    Route::post('complete_signup', CompleteSignUpController::class);
 });
+
+Route::post('complete_signup', CompleteSignUpController::class)
+    ->middleware(GeneralHelper::mobileMiddlewares(false));
