@@ -1,0 +1,45 @@
+- Client
+
+   client register his account using social auth (Google, Facebook, ..) via register endpoint
+    -- Register endpoint (social authentication) Auth/Social Auth/ Client Social Auth
+        {{URL}}/auth/social/callback/client
+
+   - After that user request a one time password that is sent to his phone
+        -- Auth/Verify User / One Time Password
+        {{URL}}/auth/verify_user/one_time_password
+
+    - He takes that password and login with mobile login endpoint
+        Auth/Login/Mobile Login
+        {{URL}}/auth/login/mobile (enters phone and one time password and then login)
+
+    - after that user must complete his profile to continue using the application
+        Auth/Complete Profile endpoint, he enters his username , phone if he didn't enter them before
+        {{URL}}/auth/complete_signup
+
+    - Logout
+        - Logout User and invalidate his token
+        {{URL}}/auth/logout
+
+    - Show profile
+        {{URL}}/auth/profile (GET)
+
+    - Update profile
+        {{URL}}/auth/profile (POST)
+
+
+- Third party
+    - same like client, the only difference is Social auth endpoint
+
+- Admin
+    - Login
+        Auth/Login/Dashboard Login
+        {{URL}}/auth/login/dashboard
+    - Logout
+        - Logout User and invalidate his token
+        {{URL}}/auth/logout
+
+    - Show profile
+        {{URL}}/auth/profile (GET)
+
+    - Update profile
+        {{URL}}/auth/profile (POST)

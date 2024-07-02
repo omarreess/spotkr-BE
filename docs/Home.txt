@@ -1,0 +1,15 @@
+(Mobile -> Client -> Home -> Citites)
+ - Popular Citites
+    fetch 4 cities (name + picture) from egypt , 2 random global
+    (cairo , luxor ..) + (Paris , milan)
+
+    - path is Mobile/Client/Home/Citites
+    {{URL}}/api/cities/popular
+
+(Mobile -> Client -> Home -> Categories)
+- Categories
+    - Parent Categories
+        {{URL}}/api/categories
+
+    - Sub Categories
+        {{URL}}/api/categories/:PARENT_CATEGORY_ID/sub_categories

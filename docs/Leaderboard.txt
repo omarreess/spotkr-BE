@@ -1,0 +1,11 @@
+- Get Users in leaderboard
+    - filters:
+        - country_id (country of the user (nullable))
+        - sub_category_id (sub sub category of sport activity (nullable))
+        - sub sub category id (sub category of sport activity (nullable))
+        - period (day, week, month, year (nullable))
+
+    {{URL}}/api/clients/leaderboard
+
+- Achievemnts
+    {{URL}}/api/clients/:CLIENT_ID/achievements

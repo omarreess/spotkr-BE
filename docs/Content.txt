@@ -1,0 +1,92 @@
+(Mobile -> Client -> Activities)
+- Actities (event, trip, course, sport )
+    - Show all
+        - filters:
+            - it can filter with type (event, trip, course, sport),
+            - city_id,
+            - category_id,
+            - order by rating (desc, asc),
+            - can also get favorite i made with it in boolean (true, false)
+            - can also get only items i made favorite (whitelist)
+
+        {{URL}}/api/clients/activities
+
+
+    - Show one
+        {{URL}}/api/clients/activities/:ACTIVITY_ID
+
+    - Similar Activities
+        {{URL}}/api/clients/activities/:ACTIVITY_ID/similar
+
+    - More Expereicen
+        {{URL}}/api/clients/activities/:ACTIVITY_ID/more_experience
+
+    - Carousel Activities
+        {{URL}}/api/clients/activities/carousel
+
+    - Adrenaline Rush
+        {{URL}}/api/clients/activities/adrenaline_rush
+
+
+
+(Mobile -> Client -> Favorites)
+- Favorite
+    - Toggle Item Favorite, send model type and model it to toggle favorite on it
+    {{URL}}/api/favorites/toggle
+
+
+(Mobile -> Reviews)
+- Reviews
+    - Get all activity reviews
+        {{URL}}/api/clients/activities/:ACTIVITY_ID/reviews
+
+    - Total Reviews Count
+        {{URL}}/api/clients/activities/:ACTIVITY_ID/reviews/total
+
+
+
+
+(Mobile -> Payment)
+- Payment
+    - Show all Credit Cards
+        {{URL}}/api/payments/cards
+
+    - Store Credit Card
+        - pass the card token from stripe to store that card
+        {{URL}}/api/payments/cards
+
+
+    - Delete Credit Card
+        {{URL}}/api/payments/cards/:id
+
+
+
+
+
+(Mobile -> Client -> Orders)
+- Orders
+    - Show all
+        - can filter by status
+        {{URL}}/api/clients/orders
+
+    - Show One
+        {{URL}}/api/clients/orders/:ORDER_ID
+
+    - Create Order
+        - after making the order, the order is still pending and waiting for payment
+        {{URL}}/api/clients/orders
+
+    - Pay Order
+        - We pass the credit card id came from (Payment -> Cards)
+        {{URL}}/api/clients/orders/:ORDER_ID/pay
+
+    - Review Order
+        - if the order is finished, we can review the order
+            {{URL}}/api/clients/orders/:ORDER_ID/review
+
+
+    - Cancel Order
+        - Cancel (Payment Done, Pending) orders only
+            {{URL}}/api/clients/orders/:ORDER_ID/cancel
+
+        - if the order is paid already, the admin refund that client for that order
