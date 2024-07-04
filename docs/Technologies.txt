@@ -1,0 +1,10 @@
+- PHP
+- Laravel Framework
+- MySQL
+- Firebase for notifications
+- Stripe for payments
+- Twilio for OTP
+- NGINX web server as reverse proxy
+- Supervisor for background processes
+- Hostinger VPS plan
+- Laravel Octane with FrankenPHP with caddy server for high performance
