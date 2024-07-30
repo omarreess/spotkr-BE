@@ -25,7 +25,7 @@ class AuthModuleServiceProvider extends ServiceProvider
     {
         $this->commands([
             ClearExpiredToken::class,
-            ClearUnverifiedUsers::class,
+//            ClearUnverifiedUsers::class,
         ]);
 
         $this->registerConfig();

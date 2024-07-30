@@ -34,6 +34,9 @@ class ClearUnverifiedUsers extends Command
 
     public function handle(): void
     {
-        User::where(AuthEnum::VERIFIED_AT, '<', now()->subWeek())->delete();
+        User::query()
+            ->whereNull(AuthEnum::VERIFIED_AT)
+            ->where('created_at', '<', now()->subWeek())
+            ->delete();
     }
 }
